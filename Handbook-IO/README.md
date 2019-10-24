@@ -46,4 +46,11 @@
 - ​    处理流：高级流，处理节点流（低级流）
 
 
-
+### 网络IO
+ 在文件操作中 inputStream.read()== -1 来判断文件是否读取完毕但在网络IO中并不适用
+ 网络IO中通信的两端若都在连接中 则inputStream.read()会阻塞在此，解决方案：
+- bufferReader.readLine()==null 可以用来判断
+- 双方约定结束符 来做判断
+ 
+ 
+ 
