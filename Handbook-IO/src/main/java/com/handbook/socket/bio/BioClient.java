@@ -47,8 +47,8 @@ public class BioClient implements Runnable{
     }
     public static void main(String[] args) throws IOException {
         ExecutorService singlePool = Executors.newCachedThreadPool();
-        for(int i=0;i<1;i++){
-            Thread thread=new Thread(new BioClient("127.0.0.1",8888,"【Client_Bio_"+i+"】->"));
+        for(int i=0;i<10;i++){
+            Thread thread=new Thread(new BioClient("192.168.1.109",8888,"【Client_Bio_"+i+"】->"));
             singlePool.execute(thread);
         }
 
