@@ -4,6 +4,8 @@ import com.handbook.tomcat.bio.MeHttpRequest;
 import com.handbook.tomcat.bio.MeHttpResponse;
 import com.handbook.tomcat.bio.Servlet;
 
+import java.io.IOException;
+
 /**
  * @description:
  * @author: Mr.Luan
@@ -12,6 +14,12 @@ import com.handbook.tomcat.bio.Servlet;
 public class HelloServlet extends Servlet{
     @Override
     public void doGet(MeHttpRequest request, MeHttpResponse response) {
+        String result=request.getStringParam();
+        try {
+            response.write(result);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
