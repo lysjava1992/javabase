@@ -82,7 +82,8 @@ public class BioChatClient {
                 new Thread(new ReadThread()).start();
                 Scanner scanner = new Scanner(System.in);
                 while (scanner.hasNext()) {
-                    String msg = nickname + "@" + scanner.next();
+                    String msg = nickname + "@" + scanner.nextLine();
+                    System.out.println(msg);
                     outputStream.write(msg.getBytes());
                     System.out.println("【系统消息】:已发送,请继续输入....");
                 }
@@ -95,7 +96,7 @@ public class BioChatClient {
         private String registerNickname() throws IOException {
 
             Scanner scanner = new Scanner(System.in);
-            nickname = scanner.next();
+            nickname = scanner.nextLine();
             outputStream.write(("LOGIN@" + nickname).getBytes());
             byte[] arr = new byte[1024];
             int len = inputStream.read(arr);
