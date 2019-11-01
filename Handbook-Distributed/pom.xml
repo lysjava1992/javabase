@@ -6,7 +6,11 @@
 
     <groupId>com.handbook</groupId>
     <artifactId>Handbook-Distributed</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>Distributed-Simple</module>
+    </modules>
 
 
 </project>
