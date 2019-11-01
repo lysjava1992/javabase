@@ -4,6 +4,8 @@ import com.handbook.tomcat.bio.MeHttpRequest;
 import com.handbook.tomcat.bio.MeHttpResponse;
 import com.handbook.tomcat.bio.Servlet;
 
+import java.io.IOException;
+
 /**
  * @description:
  *
@@ -13,7 +15,13 @@ import com.handbook.tomcat.bio.Servlet;
 public class ResourcesServlet extends Servlet{
     @Override
     public void doGet(MeHttpRequest request, MeHttpResponse response) {
-
+     String basePath=ResourcesServlet.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+         String url=request.getUrl();
+        try {
+            response.writeFile(basePath+url);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

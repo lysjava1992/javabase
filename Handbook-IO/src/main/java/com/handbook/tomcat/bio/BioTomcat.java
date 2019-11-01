@@ -47,6 +47,17 @@ public class BioTomcat {
 
     private void distribute(MeHttpRequest request, MeHttpResponse response) {
                   String url=request.getUrl();
+                  if(url.endsWith(".html")
+                     ||url.endsWith(".js")
+                     ||url.endsWith(".png")
+                     ||url.endsWith(".css")){
+                      Servlet servlet=servletMap.get("file");
+                      servlet.service(request,response);
+                  }else {
+                      Servlet servlet=servletMap.get("string");
+                      servlet.service(request,response);
+                  }
+
     }
 
     /**
@@ -74,7 +85,7 @@ public class BioTomcat {
     }
 
     public static void main(String[] args) throws IOException {
-        new BioTomcat(8080).start();
+        new BioTomcat(9001).start();
     }
 
 

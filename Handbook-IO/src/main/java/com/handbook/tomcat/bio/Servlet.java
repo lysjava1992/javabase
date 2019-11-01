@@ -11,8 +11,8 @@ public abstract class Servlet {
     public abstract void  doGet(MeHttpRequest request,MeHttpResponse response);
     public abstract void  doPost(MeHttpRequest request,MeHttpResponse response);
     public void service(MeHttpRequest request,MeHttpResponse response){
-        if("GET".equals(request.getMethod())){
-            doPost(request,response);
+        if("POST".equals(request.getMethod())){
+            doGet(request,response);
         }else {
             doGet(request,response);
         }
