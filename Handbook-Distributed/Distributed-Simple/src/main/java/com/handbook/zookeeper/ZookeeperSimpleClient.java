@@ -35,6 +35,7 @@ public class ZookeeperSimpleClient {
          zooKeeper=new ZooKeeper(ips,
                  1000,
                  new Watcher() {
+                     @Override
                      public void process(WatchedEvent watchedEvent) {
                         if(Event.KeeperState.SyncConnected==watchedEvent.getState()){
                             //注册Watcher事件，监听连接，放在主线程
@@ -86,6 +87,7 @@ public class ZookeeperSimpleClient {
     public Stat boundWatch(String path) throws KeeperException, InterruptedException {
         Stat stat=zooKeeper.exists(path,
                 new Watcher() {
+                    @Override
                     public void process(WatchedEvent watchedEvent) {
                         System.out.println("事件监控: "+watchedEvent.getType()+"---->"+watchedEvent.getPath());
                         try {
