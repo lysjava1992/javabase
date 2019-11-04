@@ -4,6 +4,10 @@
 /Handbook-Distributed/.idea/
 /Handbook-Distributed/target/
 /Handbook-Distributed/Handbook-Distributed.iml
+/Handbook-Distributed/Distributed-Dubbo/Distributed-Dubbo.iml
+/Handbook-Distributed/Distributed-Dubbo/Dubbo-Api/Dubbo-Api.iml
+/Handbook-Distributed/Distributed-Dubbo/Dubbo-Consumer/Dubbo-Consumer.iml
+/Handbook-Distributed/Distributed-Dubbo/Dubbo-Provider/Dubbo-Provider.iml
 /Handbook-Distributed/Distributed-Simple/target
 /Handbook-Distributed/Distributed-Simple/Distributed-Simple.iml
 /Handbook-Distributed/Distributed-Rpc/target
