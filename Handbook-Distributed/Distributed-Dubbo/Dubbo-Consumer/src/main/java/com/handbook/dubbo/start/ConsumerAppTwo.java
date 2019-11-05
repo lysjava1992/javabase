@@ -8,6 +8,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @description:
  * @author: Mr.Luan
  *  基于Spring 使用配置文件 从IOC容器中取值
+ *
+ *
  *  此案例对应配置文件 client1.xml    直连
  *  支持版本控制
  * @create: 2019-11-04 13:06

@@ -12,4 +12,9 @@ public class SimpleServiceTwo implements ServiceOne {
         System.out.println("调用 执行---------V_2.0.0");
         return "SimpleServiceOne: Hello 【v_2.0.0】"+name;
     }
+
+    public String sayOk(String name) {
+        System.out.println("调用 sayOk---------V_2.0.0");
+        return "SimpleServiceOne: OK 【v_2.0.0】"+name;
+    }
 }

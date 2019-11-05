@@ -16,15 +16,17 @@ import java.io.IOException;
  *   客户端只需维护zookeeper集群的地址即可，从zookeeper获取地址，在本地缓存，并在zookeepr注册监听事件，节点发生变化，更新本地缓存
  *
  *   案例对应的配置文件  server2.xml
- *    启动方式一样 使用
+ *                       server2_2.xml
+ *                       server2_3.xml
+ *    三个配置文件发布的服务相同 端口不一样 演示dubbo的负载均衡
  * @author: Mr.Luan
  * @create: 2019-11-04 14:17
  **/
 public class ProviderAppThree {
     public static void main(String[] args) throws IOException {
-        ClassPathXmlApplicationContext context=new ClassPathXmlApplicationContext("classpath:dubbo/server2.xml");
-        //   ClassPathXmlApplicationContext context=new ClassPathXmlApplicationContext("classpath:dubbo/server2_2.xml");
-        //  ClassPathXmlApplicationContext context=new ClassPathXmlApplicationContext("classpath:dubbo/server2_3.xml");
+          ClassPathXmlApplicationContext context=new ClassPathXmlApplicationContext("classpath:dubbo/server2.xml");
+        // ClassPathXmlApplicationContext context=new ClassPathXmlApplicationContext("classpath:dubbo/server2_2.xml");
+       //  ClassPathXmlApplicationContext context=new ClassPathXmlApplicationContext("classpath:dubbo/server2_3.xml");
         context.start();
         System.out.println("---------服务已发布---------");
         System.in.read();

@@ -9,4 +9,5 @@ package com.handbook.dubbo.api;
  **/
 public interface ServiceOne {
     String sayHello(String name);
+    String sayOk(String name);
 }

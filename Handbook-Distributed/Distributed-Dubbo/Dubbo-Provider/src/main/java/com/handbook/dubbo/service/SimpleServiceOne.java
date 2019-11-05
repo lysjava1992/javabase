@@ -10,7 +10,14 @@ import com.handbook.dubbo.api.ServiceOne;
 public class SimpleServiceOne  implements ServiceOne {
     public String sayHello(String name)
     {
-        System.out.println("调用 执行---------");
+        System.out.println("调用 执行---------sayHello");
+        //  int a=1/0;
+        // 抛出的异常 调用端也会抛出
         return "SimpleServiceOne: Hello "+name;
+    }
+    public String sayOk(String name)
+    {
+        System.out.println("调用 执行---------sayOk");
+        return "SimpleServiceOne: Ok "+name;
     }
 }
