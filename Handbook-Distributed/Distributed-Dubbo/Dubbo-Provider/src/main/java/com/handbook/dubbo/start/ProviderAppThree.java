@@ -1,5 +1,7 @@
 package com.handbook.dubbo.start;
 
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+import com.alibaba.dubbo.rpc.Protocol;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.IOException;
@@ -24,6 +26,12 @@ import java.io.IOException;
  **/
 public class ProviderAppThree {
     public static void main(String[] args) throws IOException {
+//        Protocol protocol= ExtensionLoader
+//                .getExtensionLoader(Protocol.class)
+//                .getExtension("myProtocol");
+//        System.out.println(protocol.getDefaultPort());
+
+
           ClassPathXmlApplicationContext context=new ClassPathXmlApplicationContext("classpath:dubbo/server2.xml");
         // ClassPathXmlApplicationContext context=new ClassPathXmlApplicationContext("classpath:dubbo/server2_2.xml");
        //  ClassPathXmlApplicationContext context=new ClassPathXmlApplicationContext("classpath:dubbo/server2_3.xml");

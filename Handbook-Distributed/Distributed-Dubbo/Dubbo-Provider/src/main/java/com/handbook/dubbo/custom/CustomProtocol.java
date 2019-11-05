@@ -1,6 +1,7 @@
 package com.handbook.dubbo.custom;
 
 import com.alibaba.dubbo.common.URL;
+import com.alibaba.dubbo.common.extension.Adaptive;
 import com.alibaba.dubbo.rpc.Exporter;
 import com.alibaba.dubbo.rpc.Invoker;
 import com.alibaba.dubbo.rpc.Protocol;
@@ -11,6 +12,7 @@ import com.alibaba.dubbo.rpc.RpcException;
  * @author: Mr.Luan
  * @create: 2019-11-05 16:42
  **/
+//@Adaptive
 public class CustomProtocol implements Protocol {
     public int getDefaultPort() {
         System.out.println("自定义-----------getDefaultPort");
