@@ -2,7 +2,7 @@
 .idea
 out
 gen
-targer
+target
 logs
 *.iml
 *.lok
