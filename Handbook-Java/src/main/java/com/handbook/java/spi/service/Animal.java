@@ -1,4 +1,4 @@
-package com.handbook.java.service;
+package com.handbook.java.spi.service;
 
 /**
  * @description:  com.handbook.java.service.Animal

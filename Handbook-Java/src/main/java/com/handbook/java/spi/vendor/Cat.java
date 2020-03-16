@@ -1,6 +1,6 @@
-package com.handbook.java.vendor;
+package com.handbook.java.spi.vendor;
 
-import com.handbook.java.service.Animal;
+import com.handbook.java.spi.service.Animal;
 
 /**
  * @description:

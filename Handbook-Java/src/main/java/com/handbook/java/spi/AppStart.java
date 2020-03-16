@@ -1,6 +1,6 @@
 package com.handbook.java.spi;
 
-import com.handbook.java.service.Animal;
+import com.handbook.java.spi.service.Animal;
 
 import java.util.ServiceLoader;
 
