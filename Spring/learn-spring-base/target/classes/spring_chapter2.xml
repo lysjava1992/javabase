@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--动态工厂
+        Spring负责创建工厂，不负责创建对象
+        对象由工厂来创建-->
+    <bean id="dynamicFactory" class="com.learn.spring.base.chapter2.bean.DynamicFactory"/>
+    <bean id="toy1" class="com.learn.spring.base.chapter2.bean.Toy" factory-bean="dynamicFactory" factory-method="createToy"/>
+
+    <!--静态工厂
+         createToy为static
+         工厂不需要注册-->
+    <bean id="toy2" class="com.learn.spring.base.chapter2.bean.StaticFactory" factory-method="createToy"/>
+</beans>

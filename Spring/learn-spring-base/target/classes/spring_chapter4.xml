@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--注解版开启注解扫描
+       主要注解 @Bean 作用在方法上 返回一个对象
+                @Autowired 依赖注入set 按类型查找
+                @Resource  依赖注入set 按name->类型
+                @Component 作用在类上 <bean></bean>
+                     衍生类：用法一样，不过赋予了明确的语义
+                           @Controller：一般用于表现层的注解。
+                           @Service：一般用于业务层的注解。
+                           @Repository：一般用于持久层的注解。
+      -->
+ <context:component-scan base-package="com.learn.spring.base.chapter4"/>
+</beans>
