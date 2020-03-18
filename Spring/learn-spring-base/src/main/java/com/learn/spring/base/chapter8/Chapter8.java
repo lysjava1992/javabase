@@ -4,7 +4,7 @@ import com.learn.spring.base.chapter8.service.BaseService5;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class Chapter {
+public class Chapter8 {
 
     public static void main(String[] args) {
         ApplicationContext context=new ClassPathXmlApplicationContext("spring_chapter8.xml");

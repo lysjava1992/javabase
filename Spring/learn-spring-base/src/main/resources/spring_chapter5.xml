@@ -13,8 +13,7 @@
         即用户需要获取personProxy
         而不是baseService1来进行操作-->
     <bean id="personProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
-        <property name="target" ref="baseService1">
-        </property>
+        <property name="target" ref="baseService1" />
         <property name="interceptorNames">
             <array>
                 <value>before</value>
