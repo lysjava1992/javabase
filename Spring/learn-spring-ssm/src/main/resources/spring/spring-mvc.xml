@@ -11,32 +11,34 @@
 
     <!-- 扫描web相关的controller -->
     <context:component-scan base-package="com.learn.spring.ssm.controller" />
-
-    <!-- 简化配置：
-        (1)自动注册DefaultAnootationHandlerMapping,AnotationMethodHandlerAdapter
-        (2)提供一些列：数据绑定，数字和日期的format @NumberFormat, @DateTimeFormat, xml,json默认读写支持 -->
-    <mvc:annotation-driven >
-        <!-- 消息转换器 -->
-        <mvc:message-converters register-defaults="true">
-            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
-                <property name="supportedMediaTypes" value="text/html;charset=UTF-8"/>
-            </bean>
-        </mvc:message-converters>
-    </mvc:annotation-driven>
-
-    <!-- 静态资源默认servlet配置 (1)加入对静态资源的处理：
-      js,gif,png (2)允许使用"/"做整体映射 -->
-    <mvc:resources mapping="/resources/**" location="/resources/" />
-
-     <!-- 定义视图解析器 -->
+    <!-- 定义视图解析器 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/view/"></property>
         <property name="suffix" value=".jsp"></property>
         <property name="contentType" value="text/html;charset=UTF-8" />
     </bean>
+   <!--处理器映射器/处理器适配器-->
+    <mvc:annotation-driven >
+        <mvc:message-converters register-defaults="true">
+            <!-- 消息转换器  返回中文字符串乱码-->
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes" value="text/html;charset=UTF-8"/>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+    <!--拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/user/*"/>
+            <mvc:exclude-mapping path="/user/login"/>
+            <bean class="com.learn.spring.ssm.component.LogInInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+    <!-- 静态资源 -->
+    <mvc:resources mapping="/resources/**" location="/resources/" />
+
     <!-- 将SpringMVC不能处理的请求交给tomcat -->
     <mvc:default-servlet-handler />
-
 
 
 </beans>

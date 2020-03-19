@@ -45,7 +45,13 @@ public class BaseController {
 
         return "返回字符串";
     }
+    @ResponseBody
+    @GetMapping("str2")
+    public String str2(HttpServletRequest request,
+                      HttpServletResponse response) {
 
+        return "welcome!!!!!!!!!!!";
+    }
     @ResponseBody
     @GetMapping("json")
     public JSONObject json(HttpServletRequest request,

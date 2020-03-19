@@ -6,10 +6,18 @@
     <select id="findById" resultType="com.learn.spring.ssm.entity.Customer">
         SELECT * FROM  user WHERE id=#{id}
     </select>
-
+    <select id="findByName" resultType="com.learn.spring.ssm.entity.Customer">
+        SELECT * FROM  user WHERE username=#{username}
+    </select>
     <select id="findAll" resultType="com.learn.spring.ssm.entity.Customer">
         SELECT * FROM  user
     </select>
-
+    <insert id="add" parameterType="com.learn.spring.ssm.entity.Customer"
+            useGeneratedKeys="true" keyProperty="id" >
+        INSERT INTO user(username,password,create_time)VALUES (#{username},#{password},#{createTime})
+    </insert>
+   <delete id="deleteById" >
+       DELETE FROM user WHERE id=#{id}
+   </delete>
 
 </mapper>

@@ -17,5 +17,10 @@ import java.util.List;
 public interface CustomerDao {
       Customer findById(Long id);
       List<Customer> findAll();
-    
+
+    Customer findByName(String username);
+
+    Long add(Customer customer);
+
+    int deleteById(Long id);
 }
