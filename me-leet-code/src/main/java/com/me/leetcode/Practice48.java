@@ -14,7 +14,7 @@ import java.util.Arrays;
  *                [8,5,2],
  *                [9,6,3]
  *             ]
- *       *
+ *  矩阵旋转90度  即：  行转成列
  * @ClassName Practice48
  * @Description TODO
  * @Author Mr.Luan
@@ -34,6 +34,12 @@ public class Practice48 {
         rotate2( matrix);
     }
 
+    /**
+     *  对于 arr[i][j] 旋转后 j就是所在的行
+     *  对于 arr[j][i] 旋转后 i就是所在的行
+     *  所以可以先对矩形进行转置，再在行内进行前后兑换
+     * @param matrix
+     */
     private static void rotate2(int[][] matrix) {
         int length=matrix.length;
         for (int i = 0; i <length ; i++) {
