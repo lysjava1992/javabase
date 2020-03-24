@@ -21,6 +21,7 @@
     <modules>
         <module>learn-spring-boot-chapter1</module>
         <module>learn-spring-boot-chapter2</module>
+		<module>learn-spring-boot-chapter3</module>
     </modules>
 	<dependencies>
 		<dependency>

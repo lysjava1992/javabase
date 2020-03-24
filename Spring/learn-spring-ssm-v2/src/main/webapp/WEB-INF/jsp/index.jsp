@@ -6,7 +6,7 @@
     <title>欢迎</title>
 </head>
 <body>
-  <h1>Welcome !!</h1>
-   <img src="/resources/imgs/100.jpg">
+  <h1>Welcome !</h1>
+  <img src="/resources/img/100.jpg">
 </body>
 </html>

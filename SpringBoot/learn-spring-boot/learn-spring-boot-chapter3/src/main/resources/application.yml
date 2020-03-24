@@ -1,0 +1,56 @@
+
+person:
+  lastName: 张三
+  age: 18
+  boss: false
+  birth: 2020/03/23
+  maps: {k1: value ,k2: 140 ,k3: 字符串}
+  maps2:
+     1: value1
+     K2: 小米
+     键3: 150
+     中文: 150
+  # 键3 不能读取 只能读取3  若key全中文则读取不到 maps2有效读取的值为
+  # {1:value1 , K2:小米 ,3:150 }
+  lists:
+    - 李四
+    - 王五
+    - King
+  lists2: [150 ,张三 ,Tom]
+  dog:
+     name: 坚果
+     age: 6
+
+person2:
+  lastName: ${random.uuid}
+  age: ${random.int(20)}
+  boss: false
+  birth: 2020/03/23
+  maps: {k1: value ,k2: 140 ,k3: 字符串}
+  lists:
+    - 李四
+    - 王五
+    - King
+  dog:
+     name: ${person2.age}_dog
+     age: 6
+server:
+  port: 8081
+spring:
+  profiles:
+    active: prod
+
+---
+server:
+  port: 8083
+spring:
+  profiles: dev
+
+
+---
+
+server:
+  port: 8084
+spring:
+  profiles: prod  #指定属于哪个环境
+

@@ -9,7 +9,6 @@
 
     <!--读取配置文件-->
     <context:property-placeholder location="classpath:db.properties"/>
-
     <!--配置连接池-->
     <bean id="datasourcePool" abstract="true" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <property name="initialSize" value="${dbPool.initialSize}" />
@@ -26,21 +25,18 @@
         <property name="maxPoolPreparedStatementPerConnectionSize" value="${dbPool.maxPoolPreparedStatementPerConnectionSize}" />
         <property name="filters" value="${dbPool.filters}" />
     </bean>
-
     <!--配置数据源-->
-    <bean id="dataSource" parent="datasourcePool">
+    <bean id="dataSource" parent="datasourcePool" >
         <property name="driverClassName" value="${jdbc.driver}" />
         <property name="url" value="${jdbc.url}" />
         <property name="username" value="${jdbc.username}" />
         <property name="password" value="${jdbc.password}" />
     </bean>
-
     <!--配置扫描Dao接口包 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.learn.spring.ssm.dao" />
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
     </bean>
-
     <!-- myBatis文件 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
@@ -48,7 +44,6 @@
         <property name="typeAliasesPackage" value="com.learn.spring.ssm.entity" />
         <property name="mapperLocations" value="classpath:mapper/*.xml" />
     </bean>
-
 
     <!-- 配置平台事务管理器 -->
     <bean id="transactionManager"

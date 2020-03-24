@@ -227,7 +227,6 @@ public class DispatcherServlet extends HttpServlet {
 
 
     }
-
     /**
      * 动态模板解析
      * @param context
@@ -241,8 +240,6 @@ public class DispatcherServlet extends HttpServlet {
         }
 
     }
-
-
     private void initFlashMapManager(ApplicationContext context) {
 
     }

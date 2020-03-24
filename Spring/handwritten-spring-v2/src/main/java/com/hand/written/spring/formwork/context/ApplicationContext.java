@@ -9,7 +9,6 @@ import com.hand.written.spring.formwork.beans.BeanPostProcessor;
 import com.hand.written.spring.formwork.beans.BeanWrapper;
 import com.hand.written.spring.formwork.context.support.BeanDefinitionReader;
 import com.hand.written.spring.formwork.core.BeanFactory;
-
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
