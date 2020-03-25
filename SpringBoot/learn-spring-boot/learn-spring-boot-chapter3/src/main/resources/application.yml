@@ -1,3 +1,7 @@
+custom:
+  hello:
+    prefix: 你好
+    suffix: 欢迎
 
 person:
   lastName: 张三
