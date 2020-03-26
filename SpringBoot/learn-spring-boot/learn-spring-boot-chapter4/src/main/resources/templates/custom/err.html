@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8">
+    <title>4XX错误页面</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="jumbotron">
+    <div class="container">
+        <h1>错误页面</h1>
+        <p>自定义路径</p>
+        <p><a class="btn btn-primary btn-lg" role="button">
+            了解更多</a>
+        </p>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        请求路径
+    </div>
+    <div class="panel-body" th:text="${path}">
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            状态码
+        </h3>
+    </div>
+    <div class="panel-body" th:text="${status}">
+        面板内容
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            错误提信息 </h3>
+    </div>
+    <div class="panel-body" th:text="${message}">
+        面板内容
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            错误提示
+        </h3>
+    </div>
+    <div class="panel-body" th:text="${error}">
+        面板内容
+    </div>
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            错误
+        </h3>
+    </div>
+    <div class="panel-body" th:text="${errors}">
+        面板内容
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            时间
+        </h3>
+    </div>
+    <div class="panel-body" th:text="${timestamp}">
+        面板内容
+    </div>
+</div>
+</body>
+</html>

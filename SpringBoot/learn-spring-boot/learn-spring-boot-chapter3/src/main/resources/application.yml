@@ -13,6 +13,7 @@ person:
      1: value1
      K2: 小米
      键3: 150
+
      中文: 150
   # 键3 不能读取 只能读取3  若key全中文则读取不到 maps2有效读取的值为
   # {1:value1 , K2:小米 ,3:150 }
@@ -42,7 +43,7 @@ server:
   port: 8081
 spring:
   profiles:
-    active: prod
+    active:
 
 ---
 server:
