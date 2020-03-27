@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://192.168.1.81:3306/Test?useUnicode=true&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      aop-patterns: com.learn.springboot.chapter6.service.*,com.learn.springboot.chapter6.dao.*
+  jpa:
+    show-sql: true
+    database: mysql

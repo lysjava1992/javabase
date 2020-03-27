@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.learn.springboot.chapter6.dao2.CustomerDaoTwo">
+
+    <insert id="insert" parameterType="com.learn.springboot.chapter6.entity.Customer"
+            useGeneratedKeys="true" keyProperty="id" >
+        INSERT INTO user(username,password,create_time,addr)VALUES (#{username},#{password},#{createTime},#{addr})
+    </insert>
+    <select id="selectList" resultType="com.learn.springboot.chapter6.entity.Customer">
+        SELECT * FROM  user
+    </select>
+
+    <select id="selectById" resultType="com.learn.springboot.chapter6.entity.Customer">
+        SELECT * FROM  user WHERE id=#{id}
+    </select>
+
+   <update id="update" parameterType="com.learn.springboot.chapter6.entity.Customer">
+       UPDATE  user SET  password=#{password} ,addr=#{addr} WHERE  id=#{id}
+   </update>
+
+</mapper>

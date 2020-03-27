@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    one:
+      username: root
+      password: root
+      url: jdbc:mysql://192.168.1.81:3306/Test?useUnicode=true&characterEncoding=UTF-8
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      type: com.alibaba.druid.pool.DruidDataSource
+    two:
+      username: root
+      password: root
+      url: jdbc:mysql://192.168.1.81:3306/Test2?useUnicode=true&characterEncoding=UTF-8
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initialSize: 5
+      minIdle: 5
+      maxActive: 20
+      filter:
+        stat:
+          log-slow-sql: true
+      aop-patterns: com.learn.springboot.chapter6.service.*,com.learn.springboot.chapter6.dao.*
+mybatis:
+#  mapper-locations:
+#      - classpath:mapper1/*.xml
+#      - classpath:mapper2/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
