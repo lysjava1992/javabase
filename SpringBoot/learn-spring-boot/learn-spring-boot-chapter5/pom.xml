@@ -12,7 +12,7 @@
     <artifactId>learn-spring-boot-chapter5</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>learn-spring-boot-chapter5</name>
-    <description>Demo project for Spring Boot</description>
+    <description>SpringBoot+异常处理+启动任务+定时任务</description>
 
     <properties>
         <java.version>1.8</java.version>

@@ -1,12 +1,13 @@
 package com.me.leetcode;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
- * 天行健，君子以自强不息
- * 地势坤，君子以厚德载物
- *
+ * abcabcbb          abc
+ * bbbbb             b
+ * pwwkew            wke
  * @ClassName Solution3
  * @Description TODO
  * @Author Mr.Luan
@@ -15,7 +16,24 @@ import java.util.Set;
  **/
 public class Practice3 {
     public static void main(String[] args) {
-        System.out.println(lengthOfLongestSubstring("abcabcbb"));
+        System.out.println(lengthOfLongestSubstring1("dvdf"));
+        System.out.println(lengthOfLongestSubstring2("dvdf"));
+    }
+
+    private static int lengthOfLongestSubstring2(String s) {
+        HashMap<Character,Integer> map=new HashMap<>();
+         int count=0;
+         int start=0;
+         int end=0;
+        for (; end<s.length() ; end++) {
+            if(map.containsKey(s.charAt(end))){
+                start=Math.max(map.get(s.charAt(end)),start);
+
+            }
+            count=Math.max(count,(end-start+1));
+            map.put(s.charAt(end),end+1);
+        }
+        return count;
     }
 
     /**
@@ -23,21 +41,19 @@ public class Practice3 {
      * @param s
      * @return
      */
-    public static int lengthOfLongestSubstring(String s) {
-        Set<Character> set=new HashSet<Character>();
-            int left=0;
-            int right=0;
-            int count=0;
-            char[] arr=s.toCharArray();
-            for (int i=0;i<arr.length;i++){
-                if(!set.contains(arr[i])){
-                    count++;
-                    right++;
-                    set.add(arr[i]);
-                }else {
-                    set.remove(arr[left++]);
+    public static int lengthOfLongestSubstring1(String s) {
+        int count=0;
+        for (int i = 0; i < s.length()-count; i++) {
+            Set<Character> sets=new HashSet<>();
+            sets.add(s.charAt(i));
+            for (int j = i+1; j < s.length(); j++) {
+                if(sets.contains(s.charAt(j))){
+                    break;
                 }
+                sets.add(s.charAt(j));
             }
-         return 0;
+            count=sets.size()>count?sets.size():count;
+        }
+        return count;
     }
 }

@@ -13,7 +13,7 @@
 	<artifactId>learn-spring-boot-chapter1</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>learn-spring-boot-chapter1</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Spring Boot启动与监听事件</description>
 
 	<properties>
 		<java.version>1.8</java.version>

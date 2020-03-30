@@ -3,38 +3,37 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-        <groupId>com.learn</groupId>
-        <artifactId>learn-spring-boot</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+		<groupId>com.learn</groupId>
+		<artifactId>learn-spring-boot</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>com.learn</groupId>
-	<artifactId>learn-spring-boot-chapter8</artifactId>
+	<artifactId>learn-spring-boot-chapter10</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>learn-spring-boot-chapter8</name>
-	<description>SpingBoot+Jpa+Rest</description>
+	<name>learn-spring-boot-chapter10</name>
+	<description>Demo project for Spring Boot</description>
+
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-rest</artifactId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>druid-spring-boot-starter</artifactId>
-			<version>1.1.10</version>
-		</dependency>
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<scope>runtime</scope>
-		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
@@ -56,7 +55,16 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-	</dependencies>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-core</artifactId>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>
@@ -66,4 +74,5 @@
 			</plugin>
 		</plugins>
 	</build>
+
 </project>
