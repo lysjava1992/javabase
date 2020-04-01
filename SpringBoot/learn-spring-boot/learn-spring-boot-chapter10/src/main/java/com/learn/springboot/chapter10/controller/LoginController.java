@@ -30,11 +30,11 @@ public class LoginController {
     }
 
 
-//    @PostMapping(value = {"/doLogin"})
-//    public String loginMethod(Model model){
-//
-//        return "index";
-//    }
+    @GetMapping(value = {"/index"})
+    public String index(Model model){
+
+        return "index";
+    }
 
     @GetMapping(value = {"/code"})
     public void code(HttpServletRequest request,HttpServletResponse response) throws IOException {

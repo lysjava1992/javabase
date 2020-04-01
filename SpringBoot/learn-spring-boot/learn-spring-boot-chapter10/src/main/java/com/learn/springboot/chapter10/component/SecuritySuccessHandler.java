@@ -8,6 +8,8 @@ package com.learn.springboot.chapter10.component;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
@@ -23,16 +25,12 @@ import java.io.IOException;
  * @create: 2020-03-31 11:08
  **/
 @Component
-class SecuritySuccessHandler implements AuthenticationSuccessHandler {
-
-
+class SecuritySuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest httpServletRequest,
-                                        HttpServletResponse httpServletResponse,
+    public void onAuthenticationSuccess(HttpServletRequest request,
+                                        HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
-        System.out.println(authentication.getAuthorities());
-        System.out.println(authentication.getCredentials());
-        System.out.println(authentication.getDetails());
-        System.out.println(authentication.getPrincipal());
+       getRedirectStrategy().sendRedirect(request,response,"/index");
+
     }
 }

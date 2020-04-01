@@ -17,7 +17,7 @@ import java.io.IOException;
  * @author: Mr.Luan
  * @create: 2020-03-31 11:43
  **/
-//@Component
+@Component
 public class VerifyCodeFilter extends OncePerRequestFilter {
         private String defaultFilterUrl="/doLogin";
         private String defaultMethod="POST";
@@ -32,15 +32,16 @@ public class VerifyCodeFilter extends OncePerRequestFilter {
                     String code=request.getParameter("code");
                 if(code==null||code.equals("")){
                     failedHandler.onAuthenticationFailure(request,response,new VerifyCodeException("验证码不能为空"));
+                    return;
                 }
                     String sessionCode= (String) request.getSession().getAttribute("code");
                 if(!(code.toLowerCase().equals(sessionCode.toLowerCase()))){
-
                     failedHandler.onAuthenticationFailure(request,response,new VerifyCodeException("验证码错误"));
+                    return;
                 }
-            }else {
-                filterChain.doFilter(request,response);
             }
+                filterChain.doFilter(request,response);
+
 
     }
 

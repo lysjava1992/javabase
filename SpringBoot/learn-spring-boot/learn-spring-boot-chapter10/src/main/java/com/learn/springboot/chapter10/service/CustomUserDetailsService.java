@@ -24,12 +24,13 @@ public class CustomUserDetailsService implements UserDetailsService{
     @Autowired
     CustomerDao customerDao;
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("===================");
+    public UserDetails loadUserByUsername(String username)  {
+
         Customer customer=customerDao.selectByName(username);
           if(customer==null){
               throw new UsernameNotFoundException("用户不存在");
           }
+          customer.setPassword(passwordEncoder.encode(customer.getPassword()));
         return customer;
     }
 }

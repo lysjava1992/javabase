@@ -31,20 +31,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     SecurityFailedHandler securityFailedHandler;
 
-//    @Autowired
-//    VerifyCodeFilter verifyCodeFilter;
+    @Autowired
+    VerifyCodeFilter verifyCodeFilter;
 
     @Autowired
     CustomUserDetailsService userDetailsService;
-    /**
-     * 此处内置用户名密码   必须配置role;必须是加密后的密码
-     * 此处和配置文件，此处优先
-     **/
+
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth)
             throws Exception {
-           auth.userDetailsService(userDetailsService);
+        auth.authenticationProvider(authenticationProvider());
     }
+
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider
+                = new DaoAuthenticationProvider();
+        //取消默认模式，不然UserNotFoundExceptions不会抛出
+        authProvider.setHideUserNotFoundExceptions(false);
+        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
+    }
+
 
 
 
@@ -72,11 +82,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      **/
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-      // http.addFilterBefore(verifyCodeFilter, UsernamePasswordAuthenticationFilter.class)
-        http      .authorizeRequests()
+        http    .authorizeRequests()
                 .antMatchers("/code").permitAll()
                 .anyRequest().authenticated()
                 .and()
+             //   .addFilterBefore(verifyCodeFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/doLogin")

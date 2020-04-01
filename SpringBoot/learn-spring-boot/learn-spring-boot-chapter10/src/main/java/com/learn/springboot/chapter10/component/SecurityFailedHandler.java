@@ -1,8 +1,9 @@
 package com.learn.springboot.chapter10.component;
 
-import com.learn.springboot.chapter10.domain.VerifyCodeException;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
@@ -23,26 +24,21 @@ public class SecurityFailedHandler extends SimpleUrlAuthenticationFailureHandler
     public void onAuthenticationFailure(HttpServletRequest request,
                                         HttpServletResponse response,
                                         AuthenticationException e) throws IOException, ServletException {
-        if(isAjaxRequest(request)){
-            //返回json
-            response.setStatus(500);
-            response.setContentType("text/html;charset=utf-8");
-            PrintWriter out = response.getWriter();
-            out.print(e.getMessage());
-            out.flush();
-            out.close();
-        }else{
-            request.getSession().setAttribute("err",e.getMessage());
-            getRedirectStrategy().sendRedirect(request, response, "/login");
-        }
-
-    }
-    private boolean isAjaxRequest(HttpServletRequest request) {
-        String header = request.getHeader("X-Requested-With");
-        if (header != null && "XMLHttpRequest".equals(header)){
-            return true;
-        }else{
-            return false;
-        }
+            String msg=e.getMessage();
+           if(e instanceof UsernameNotFoundException||e instanceof BadCredentialsException){
+                msg= "用户名或密码错误";
+           }else if(e instanceof DisabledException){
+                msg= "用户被禁用";
+           }else if(e instanceof CredentialsExpiredException){
+               msg= "凭证过期";
+           }else if(e instanceof AccountExpiredException){
+               msg= "账户过期";
+           }else if(e instanceof LockedException){
+               msg= "账户被锁定";
+           } else{
+               e.printStackTrace();
+           }
+               request.getSession().setAttribute("err",msg);
+               getRedirectStrategy().sendRedirect(request, response, "/login");
     }
 }
