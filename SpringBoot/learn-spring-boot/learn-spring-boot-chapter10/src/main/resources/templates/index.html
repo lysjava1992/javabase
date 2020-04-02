@@ -8,7 +8,30 @@
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">菜鸟教程</a>
+        </div>
+        <div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">首页</a></li>
+                <!--<li class="dropdown">-->
+                    <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">-->
+                        <!--Java <b class="caret"></b>-->
+                    <!--</a>-->
+                    <!--<ul class="dropdown-menu">-->
+                        <!--<li><a href="#">jmeter</a></li>-->
+                        <!--<li><a href="#">EJB</a></li>-->
+                        <!--<li><a href=""></a></li>-->
 
+                    <!--</ul>-->
+                <!--</li>-->
+                <li><a href="/logout">退出</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
 <div class="jumbotron">
     <div class="container">
         <h1>欢迎登陆页面！</h1>
@@ -16,8 +39,56 @@
         <p><a class="btn btn-primary btn-lg" role="button">
             学习更多</a>
         </p>
+        <p id="textId">
+            内容区
+        </p>
+        <div class="bs-example">
+            <button  id="myButtons1"  type="button" class="btn btn-primary">通用</button>
+            <button  id="myButtons2"  type="button" class="btn btn-primary">会员</button>
+            <button  id="myButtons3"  type="button" class="btn btn-primary">管理</button>
+        </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(function () {
+        $("#myButtons1").click(function(){
+            $("#textId").text("");
+         $.ajax({
+             type: "GET",
+             url: "/hello",
+             success: function(data){$("#textId").text(data);},
+             error:function (data) {
+                 $("#textId").text(data.message);
+             }
+         })
+        });
 
+        $("#myButtons2").click(function(){
+            $("#textId").text("");
+            $.ajax({
+                type: "POST",
+                url: "/hello",
+                success: function(data){$("#textId").text(data);},
+                error:function (data) {
+                    $("#textId").text(data.message);
+                }
+            })
+        });
+
+        $("#myButtons3").click(function(){
+            $("#textId").text("");
+            $.ajax({
+                type: "GET",
+                url: "/hello/admin",
+                success: function(data){$("#textId").text(data);},
+                error:function (error) {
+                    var jsonStr = JSON.stringify(error.responseJSON);
+                    $("#textId").text(jsonStr);
+                }
+            })
+        });
+    });
+
+</script>
 </body>
 </html>

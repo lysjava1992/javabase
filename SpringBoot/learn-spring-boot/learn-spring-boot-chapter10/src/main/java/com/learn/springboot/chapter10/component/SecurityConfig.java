@@ -7,13 +7,20 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 
 /**
@@ -23,6 +30,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * @author: Mr.Luan
  * @create: 2020-03-30 11:05
  **/
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true,securedEnabled=true,jsr250Enabled=true)
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
@@ -42,6 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth)
             throws Exception {
         auth.authenticationProvider(authenticationProvider());
+
     }
 
     @Bean
@@ -82,7 +92,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      **/
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http    .authorizeRequests()
+        http .authorizeRequests()
                 .antMatchers("/code").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -96,9 +106,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .httpBasic()
                 .and()
-                .logout().permitAll()
+                .rememberMe()
+                .userDetailsService(userDetailsService)
+                .tokenRepository(persistentTokenRepository())
+                .tokenValiditySeconds(60*60*24*7)
+                .and()
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login")
+                .permitAll()
                 .and()
                 .csrf().disable();
+                 http.sessionManagement()
+                .maximumSessions(3).expiredUrl("/login")
+                .sessionRegistry(sessionRegistry());
     }
+    @Bean
+    public SessionRegistry sessionRegistry(){
+        SessionRegistry sessionRegistry=new SessionRegistryImpl();
+        return sessionRegistry;
+    }
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository() {
+        PersistentTokenRepository tokenRepository=new InMemoryTokenRepositoryImpl();
 
+        return tokenRepository;
+    }
 }

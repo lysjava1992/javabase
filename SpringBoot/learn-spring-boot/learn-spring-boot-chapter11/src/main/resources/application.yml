@@ -12,14 +12,9 @@ spring:
       filter:
         stat:
           log-slow-sql: true
-      aop-patterns: com.learn.springboot.chapter10.service.*,com.learn.springboot.chapter10.dao.*
+      aop-patterns: com.learn.springboot.chapter11.service.*,com.learn.springboot.chapter11.dao.*
   thymeleaf:
     cache: false
- #Mybatis 指定映射文件地址 开启驼峰命名
-mybatis:
-  mapper-locations: classpath:mapper/*.xml
-  configuration:
-    map-underscore-to-camel-case: true
 server:
   servlet:
     session:

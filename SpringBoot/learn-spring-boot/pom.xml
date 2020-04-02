@@ -31,7 +31,7 @@
 		<module>learn-spring-boot-chapter8</module>
 		<module>learn-spring-boot-chapter9</module>
 		<module>learn-spring-boot-chapter10</module>
-
+		<module>learn-spring-boot-chapter11</module>
     </modules>
 	<dependencies>
 		<dependency>
