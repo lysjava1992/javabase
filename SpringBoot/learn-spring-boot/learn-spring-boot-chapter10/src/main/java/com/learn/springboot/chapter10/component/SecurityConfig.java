@@ -1,9 +1,13 @@
 package com.learn.springboot.chapter10.component;
 
+import com.learn.springboot.chapter10.component.sms.MobileAuthenticationFilter;
+import com.learn.springboot.chapter10.component.sms.MobileAuthenticationProvider;
+import com.learn.springboot.chapter10.component.sms.MoblieSecurityConfig;
 import com.learn.springboot.chapter10.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -36,23 +40,29 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     SecuritySuccessHandler securitySuccessHandler;
-
     @Autowired
     SecurityFailedHandler securityFailedHandler;
 
     @Autowired
     VerifyCodeFilter verifyCodeFilter;
+    @Autowired
+    MoblieCodeFilter moblieCodeFilter;
+
+     @Autowired
+    MoblieSecurityConfig moblieSecurityConfig;
 
     @Autowired
     CustomUserDetailsService userDetailsService;
+
 
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth)
             throws Exception {
         auth.authenticationProvider(authenticationProvider());
-
     }
+
+
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
@@ -64,8 +74,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
-
-
 
 
     /**
@@ -93,7 +101,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http .authorizeRequests()
-                .antMatchers("/code").permitAll()
+                .antMatchers("/code","/mobile_code").permitAll()
                 .anyRequest().authenticated()
                 .and()
              //   .addFilterBefore(verifyCodeFilter, UsernamePasswordAuthenticationFilter.class)
@@ -103,6 +111,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(securitySuccessHandler)
                 .failureHandler(securityFailedHandler)
                 .permitAll()
+                .and()
+                .addFilterBefore(moblieCodeFilter, UsernamePasswordAuthenticationFilter.class)
+                .apply(moblieSecurityConfig)
                 .and()
                 .httpBasic()
                 .and()
@@ -120,7 +131,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                  http.sessionManagement()
                 .maximumSessions(3).expiredUrl("/login")
                 .sessionRegistry(sessionRegistry());
+
+
     }
+
+
+
     @Bean
     public SessionRegistry sessionRegistry(){
         SessionRegistry sessionRegistry=new SessionRegistryImpl();

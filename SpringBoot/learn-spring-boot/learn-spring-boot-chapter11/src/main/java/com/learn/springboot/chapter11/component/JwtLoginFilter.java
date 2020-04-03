@@ -15,7 +15,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -87,7 +86,7 @@ public class JwtLoginFilter extends AbstractAuthenticationProcessingFilter {
         String jwt= Jwts.builder()
                    .claim("authorities",roles)
                    .setSubject(authResult.getName())
-                   .setExpiration(new Date(System.currentTimeMillis()+1000*60*10))
+                   .setExpiration(new Date(System.currentTimeMillis()+1000*60*5))
                    .signWith(SignatureAlgorithm.HS512,"jzhkr@2020")
                    .compact();
         Result result=new Result(200,"登录成功",jwt);

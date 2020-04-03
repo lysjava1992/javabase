@@ -20,6 +20,7 @@ public class Customer implements UserDetails{
     private Long id;
     private String username;
     private String password;
+    private String mobile;
     private String createTime;
     private String addr;
     private String role;

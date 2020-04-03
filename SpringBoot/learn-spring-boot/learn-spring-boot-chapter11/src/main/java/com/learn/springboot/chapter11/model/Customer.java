@@ -73,4 +73,14 @@ public class Customer implements UserDetails{
     public boolean isEnabled() {
         return true;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        return  this.toString().equals(o.toString());
+    }
+
+    @Override
+    public int hashCode() {
+        return username.hashCode();
+    }
 }

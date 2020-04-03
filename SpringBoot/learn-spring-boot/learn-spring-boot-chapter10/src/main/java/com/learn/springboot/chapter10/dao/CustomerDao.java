@@ -9,4 +9,6 @@ import com.learn.springboot.chapter10.entity.Customer;
  **/
 public interface CustomerDao {
     Customer selectByName(String username);
+
+    Customer selectByMoblie(String mobile);
 }

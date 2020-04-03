@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>登录| </title>
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.staticfile.org/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.css" rel="stylesheet">
+    <link href="/resource/bootstrap/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <link href="/resource/custom/custom.min.css" rel="stylesheet">
+</head>
+<body class="login">
+<div>
+    <a class="hiddenanchor" id="signup"></a>
+    <a class="hiddenanchor" id="signin"></a>
+
+    <div class="login_wrapper">
+        <div class="animate form login_form">
+            <section class="login_content">
+                <div class="login_form">
+                    <h1>微信管理后台</h1>
+                    <div>
+                        <input type="text" class="form-control" placeholder="Username" required="" name="username"/>
+                    </div>
+                    <div>
+                        <input type="password" class="form-control" placeholder="Password" required="" name="password"/>
+                    </div>
+                    <div>
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="remember-me">请记住我
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn btn-lg btn-primary btn-block" onclick="login()">登录</button>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="separator">
+                        <div class="clearfix"></div>
+                        <br/>
+                        <div>
+                            <p>©2020 SpringSecurity</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script th:inline="javascript">
+    function login() {
+        $.ajax({
+            type: "POST",
+            url: "/login",
+            success: function (data) {
+                if (data.code == 200) {
+                    alert("登录成功");
+                    setTokenToCookie(data.data)
+                }else {
+                    alert(data.msg);
+                }
+            },
+            error: function (data) {
+                alert(data.message);
+            }
+        })
+    }
+
+    function setTokenToCookie(value) {
+        var Days = 1; //此 cookie 将被保存 30 天
+        var exp = new Date();
+        exp.setTime(exp.getTime() + 5 * 60 * 1000);
+        document.cookie = "my_token =" + escape(value) + ";expires=" + exp.toGMTString();
+    }
+</script>
+</body>
+</html>

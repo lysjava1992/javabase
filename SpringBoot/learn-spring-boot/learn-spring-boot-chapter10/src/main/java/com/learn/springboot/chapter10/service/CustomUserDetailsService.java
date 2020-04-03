@@ -28,6 +28,9 @@ public class CustomUserDetailsService implements UserDetailsService{
 
         Customer customer=customerDao.selectByName(username);
           if(customer==null){
+             customer=customerDao.selectByMoblie(username);
+          }
+          if(customer==null){
               throw new UsernameNotFoundException("用户不存在");
           }
           customer.setPassword(passwordEncoder.encode(customer.getPassword()));

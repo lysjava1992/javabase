@@ -3,14 +3,12 @@ package com.learn.springboot.chapter10.controller;
 import com.learn.springboot.chapter10.util.AuthImgUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.ResultSet;
 
 /**
  * @description:
@@ -39,5 +37,15 @@ public class LoginController {
     @GetMapping(value = {"/code"})
     public void code(HttpServletRequest request,HttpServletResponse response) throws IOException {
       AuthImgUtils.service(request,response);
+    }
+
+
+    @ResponseBody
+    @GetMapping(value = {"/mobile_code"})
+    public String mobileCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        request.getSession().setAttribute("mobile_code","123456");
+        request.setAttribute("mobile_code","123456");
+        System.out.println("===============发送成功");
+        return "ok";
     }
 }

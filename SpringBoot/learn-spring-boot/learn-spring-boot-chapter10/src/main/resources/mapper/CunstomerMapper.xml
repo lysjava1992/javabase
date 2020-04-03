@@ -17,6 +17,9 @@
     <select id="selectByName" resultType="com.learn.springboot.chapter10.entity.Customer">
         SELECT * FROM  user WHERE username=#{username}
     </select>
+    <select id="selectByMoblie" resultType="com.learn.springboot.chapter10.entity.Customer">
+        SELECT * FROM  user WHERE mobile=#{mobile}
+    </select>
    <update id="update" parameterType="com.learn.springboot.chapter10.entity.Customer">
        UPDATE  user SET  password=#{password} ,addr=#{addr} WHERE  id=#{id}
    </update>

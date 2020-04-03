@@ -25,11 +25,12 @@ import java.io.IOException;
  * @create: 2020-03-31 11:08
  **/
 @Component
-class SecuritySuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
+public class SecuritySuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
+        System.out.println("=====================成功");
        getRedirectStrategy().sendRedirect(request,response,"/index");
 
     }
