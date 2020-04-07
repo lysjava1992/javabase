@@ -7,9 +7,12 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 
 /**
  * @author admin
+ *  授权服务器
+ *     客户端的验证与授权
+ *     令牌的生成与发放
+ *     令牌的校验与更新
  */
 @EnableAuthorizationServer
-@EnableResourceServer
 @SpringBootApplication
 public class Oauth2AuthorizationServer2Application {
 

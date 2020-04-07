@@ -1,10 +1,10 @@
-package com.learn.oauth2.server2.config;
+package com.learn.oauth.server3.config;
 
+import com.learn.oauth.server3.service.CustomUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
@@ -25,7 +25,8 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
  **/
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
+    @Autowired
+    CustomUserService userDetailsService;
     /**
      * 认证管理对象
      * @return
@@ -47,25 +48,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    /**
-     * 创建两个内存用户
-     * 用户名 user 密码 123456 角色 ROLE_USER
-     * 用户名 admin 密码 admin 角色 ROLE_ADMIN
-     *
-     * @return InMemoryUserDetailsManager
-     */
     @Bean
-    @Override
-    public UserDetailsService userDetailsService() {
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(User.withUsername("user")
-                .password(passwordEncoder().encode("123456"))
-                .authorities("ROLE_USER").build());
-        manager.createUser(User.withUsername("admin")
-                .password(passwordEncoder().encode("123456"))
-                .authorities("ROLE_ADMIN").build());
-        return manager;
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider
+                = new DaoAuthenticationProvider();
+        authProvider.setHideUserNotFoundExceptions(false);
+        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
     }
-
 
 }

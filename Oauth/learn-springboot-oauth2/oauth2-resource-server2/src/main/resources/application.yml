@@ -1,0 +1,17 @@
+security:
+  oauth2:
+     authorization:
+      check-token-access: isAuthenticated()
+     client:
+       resource-ids:  oauth2 # 资源的 id
+       access-token-uri: http://localhost:8081/oauth/check_token
+       client-id: oauth
+       client-secret: oauth
+       user-authorization-uri: http://localhost:8081/oauth/check_token
+     resource:
+       id:
+security:
+     oauth2:
+        resource:
+
+

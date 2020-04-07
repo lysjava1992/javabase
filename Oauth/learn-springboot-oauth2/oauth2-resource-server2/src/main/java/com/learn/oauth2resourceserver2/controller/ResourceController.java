@@ -1,4 +1,4 @@
-package com.learn.oauth2.server2.controller;
+package com.learn.oauth2resourceserver2.controller;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
