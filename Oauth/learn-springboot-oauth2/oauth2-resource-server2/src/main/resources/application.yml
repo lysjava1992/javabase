@@ -1,17 +1,29 @@
+server:
+  port: 9000
+#security:
+#  oauth2:
+#    resource:
+#      token-info-uri: http://localhost:8080/oauth/check_token
+#    client:
+#      client-id: client002
+#      client-secret: 123456 # 这里必须是加密前的密钥
+#      grant-type: authorization_code,password,refresh_token
+#      scope: all
+
 security:
   oauth2:
-     authorization:
-      check-token-access: isAuthenticated()
-     client:
-       resource-ids:  oauth2 # 资源的 id
-       access-token-uri: http://localhost:8081/oauth/check_token
-       client-id: oauth
-       client-secret: oauth
-       user-authorization-uri: http://localhost:8081/oauth/check_token
-     resource:
-       id:
-security:
-     oauth2:
-        resource:
+    resource:
+      jwt:
+        key-password: -----BEGIN PUBLIC KEY-----
+                      MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjR0Xg3S17GxtDGBZZ4g
+                      CytNbvVZZP6VW7GYhUwtRVXovnBNhsLr7X9efwyamuA3Hw9viOfQOPS+fcOWKaZ
+                      HQWfUDoEww/rWHwkS8ZoWJIx6ASriQtx10Iygr4FkT9KTedrIpFrU4L3EwnupLx
+                      3OomkptHSgITZHjVjQWGcmwwxmnhcD4dCOfrCzPUYYJ8gPQsnfd/M3XtJ/XF7gD
+                      J8d9Q4A3l0R8tEAgV1PREYF+BcK01A1UzCm9UoF+llKYoLGTEg7VyAp7NynmvDD
+                      hb0gJZ3G+xBuo8sDPjfmTCP9R6SqY0HJ2l4pUrDf5L9VHbcgpHr3Muahp/fjDi1
+                      eG2J7MewIDAQAB
+                      -----END PUBLIC KEY-----
+
+
 
 

@@ -27,6 +27,6 @@ public class ResourceController {
      */
     @GetMapping("/resource")
     public HttpEntity<?> resource(Principal principal) {
-        return ResponseEntity.ok(principal);
+        return ResponseEntity.ok("获取资源成功");
     }
 }
