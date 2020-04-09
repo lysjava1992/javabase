@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -14,7 +15,8 @@ import java.util.List;
  *
  **/
 @Data
-public class Customer implements UserDetails {
+public class Customer implements UserDetails ,Serializable{
+    private Serializable serializable=1L;
     private Long id;
     private String username;
     private String password;

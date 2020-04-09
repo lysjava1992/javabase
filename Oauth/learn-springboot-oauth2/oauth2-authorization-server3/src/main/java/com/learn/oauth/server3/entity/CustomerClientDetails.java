@@ -16,12 +16,12 @@ public class CustomerClientDetails implements ClientDetails {
       private String clientId;
       private String clientSecret;
       private String authorizedGrantTypes;
-      private String redirectUri;
+      private String redirectUris;
       private Integer accessTokenValidity;
       private Integer refreshTokenValidity;
       private String resourceIds;
       private String scopes;
-      private String role;
+      private String roles;
 
     @Override
     public String getClientId() {
@@ -63,15 +63,18 @@ public class CustomerClientDetails implements ClientDetails {
 
     @Override
     public Set<String> getRegisteredRedirectUri() {
-        String[] arr=this.redirectUri.split(";");
+        String[] arr=this.redirectUris.split(";");
         return new HashSet<>(Arrays.asList(arr));
     }
 
     @Override
     public Collection<GrantedAuthority> getAuthorities() {
-        GrantedAuthority authority1=new SimpleGrantedAuthority(this.role);
+        String[] arr=this.roles.split(";");
         List<GrantedAuthority> list=new ArrayList<>();
-        list.add(authority1);
+        for (String role: arr) {
+            GrantedAuthority authority=new SimpleGrantedAuthority(role);
+            list.add(authority);
+        }
         return list;
     }
 
