@@ -18,8 +18,27 @@ import java.util.Arrays;
  **/
 public class Practice31 {
     public static void main(String[] args) {
-        nextPermutation(new int[]{4,2,0,2,3,2,0});
+        int [] arr=new int[]{1,2,3,5,4};
+        nextPermutation(arr);
+        System.out.println(Arrays.toString(arr));
+
     }
+
+    /**
+     *   1, 2, 3, (4), 5
+     *   1, 2, (3), 5, 4
+     *   1, 2, 4, (3), 5
+     *   1, 2, (4), 5, 3
+     *   1, 2, 5, (3), 4
+     *   1, (2), 5, 4, 3
+     *   1, 3, 2, (4), 5
+     *   1, 3, (2), 5, 4
+     *   1, 3, 4, (2), 5
+     *   ......
+     *  找到临界点  将临界点之后的数排序 保证是最小序列
+     *   再找到 有序数列中中最小的比临界点大的数交换位置
+     * @param nums
+     */
     public static  void nextPermutation(int[] nums) {
 
         int len = nums.length;
@@ -29,6 +48,7 @@ public class Practice31 {
                 return;
             } else {
                 if (nums[i] > nums[i - 1]) {
+
                     Arrays.sort(nums, i, len);
                     for (int j = i; j <len; j++) {
                         if (nums[j] > nums[i - 1]) {
