@@ -10,7 +10,7 @@ package com.me.leetcode;
  * @Date 2020/3/18 19:25
  * @Version 1.0
  **/
-public class practice19 {
+public class Practice19 {
     public static void main(String[] args) {
         ListNode node1 = new ListNode(1);
         ListNode node2 = new ListNode(2);
