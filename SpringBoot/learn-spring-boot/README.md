@@ -86,6 +86,7 @@ SpringSecurity+JWT 无状态登录案例
 
 ```
 JSR-303 Bean校验
+Spring StateMachine 状态机
 ```
 
 # 
