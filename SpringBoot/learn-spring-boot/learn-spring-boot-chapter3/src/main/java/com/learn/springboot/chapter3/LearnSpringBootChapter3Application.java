@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.Map;
 
 @ImportResource(locations = {"classpath:Spring-Bean.xml"})
-@SpringBootApplication
+//@SpringBootApplication
 public class LearnSpringBootChapter3Application {
 
 	public static void main(String[] args) {

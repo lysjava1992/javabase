@@ -83,6 +83,11 @@ SpringSecurity 详细配置
 SpringSecurity+JWT 无状态登录案例
 ```
 
+# 		  learn-spring-boot-chapter12 
 
+```
+JSR-303 Bean校验
+Spring StateMachine 状态机
+```
 
 # 
