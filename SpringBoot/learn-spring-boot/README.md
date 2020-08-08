@@ -10,6 +10,7 @@
 
 ```
 Spring web 默认配置
+扩展自描述消息（消息转换器）
 ```
 
 # 		  learn-spring-boot-chapter3 
