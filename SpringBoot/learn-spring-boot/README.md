@@ -23,7 +23,9 @@ YML和.properties 配置文件语法和读取
 
 ```
 SpringBoot 自定义项目启动任务
-           简单定时任务
+           简单定时任务:
+              @Scheduled  
+              implements SchedulingConfigurer
            全局异常处理
 ```
 
@@ -90,4 +92,9 @@ JSR-303 Bean校验
 Spring StateMachine 状态机
 ```
 
+# 		  learn-spring-boot-chapter13
+
+```
+Quartz 定时任务
+```
 # 

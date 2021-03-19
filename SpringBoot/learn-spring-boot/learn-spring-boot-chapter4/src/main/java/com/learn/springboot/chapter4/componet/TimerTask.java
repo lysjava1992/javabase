@@ -18,20 +18,23 @@ import java.util.Date;
  **/
 @Component
 public class TimerTask {
-    @Scheduled(fixedRate = 2000)
+    //@Scheduled(fixedRate = 2000)
     public void fixedRate() {
         System.out.println("fixedRate>>>"+new Date());
     }
-    @Scheduled(fixedDelay = 2000)
+    //@Scheduled(fixedDelay = 2000)
     public void fixedDelay() {
         System.out.println("fixedDelay>>>"+new Date());
     }
-    @Scheduled(initialDelay = 2000,fixedDelay = 2000)
+    //@Scheduled(initialDelay = 2000,fixedDelay = 2000)
     public void initialDelay() {
         System.out.println("initialDelay>>>"+new Date());
     }
-    @Scheduled(cron = "0/5 * * * * *")
-    public void cron() {
+    @Scheduled(cron = "0/3 * * * * *")
+    public void cron() throws InterruptedException {
+
+
         System.out.println("cron>>>"+new Date());
+        Thread.sleep(5000);
     }
 }
