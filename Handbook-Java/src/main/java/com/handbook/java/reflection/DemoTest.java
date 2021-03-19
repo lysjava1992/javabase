@@ -3,11 +3,10 @@ package com.handbook.java.reflection;
 import org.junit.Test;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
+import java.lang.reflect.*;
 
 /**
+ * 类信息 构造方法
  * 天行健，君子以自强不息
  * 地势坤，君子以厚德载物
  *
@@ -17,6 +16,7 @@ import java.lang.reflect.Modifier;
  * @Date 2021/3/18 21:05
  * @Version 1.0
  **/
+
 public class DemoTest {
 
     /**
@@ -56,7 +56,6 @@ public class DemoTest {
         Class[] interfaces=c.getInterfaces();
         System.out.println(interfaces.length);
     }
-
     @Test
     public void test3(){
         Class c=MyObject.class;
@@ -77,5 +76,21 @@ public class DemoTest {
         }
         Annotation[] annotations = c.getAnnotations();
         System.out.println(annotations.length);
+    }
+    @Test
+    public void test5(){
+        Class aClass=MyObject.class;
+        Constructor[] constructors=aClass.getConstructors();
+        for (Constructor constructor : constructors) {
+            Class[] parameterTypes = constructor.getParameterTypes();
+            System.out.println(parameterTypes.length);
+        }
+    }
+    @Test
+    public void test6() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        Class aClass=MyObject.class;
+        Constructor constructor=aClass.getConstructor(new Class[]{String.class});
+        MyObject object= (MyObject) constructor.newInstance("King");
+        System.out.println(object.getName());
     }
 }
