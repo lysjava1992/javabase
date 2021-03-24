@@ -27,6 +27,7 @@ SpringBoot 自定义项目启动任务
               @Scheduled  
               implements SchedulingConfigurer
            全局异常处理
+单元测试           
 ```
 
 # 		  learn-spring-boot-chapter5 

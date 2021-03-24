@@ -3,7 +3,7 @@ package com.handbook.java.thread;
 /**
  * 天行健，君子以自强不息
  * 地势坤，君子以厚德载物
- *
+ *   不可变性
  * @ClassName ImmutableValue
  * @Description TODO
  * @Author Mr.Luan

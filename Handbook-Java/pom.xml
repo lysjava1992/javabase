@@ -25,7 +25,6 @@
             <artifactId>junit</artifactId>
             <version>RELEASE</version>
         </dependency>
-
     </dependencies>
     <build>
         <plugins>
@@ -39,6 +38,4 @@
             </plugin>
         </plugins>
     </build>
-
-
 </project>
