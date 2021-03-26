@@ -22,6 +22,7 @@ public class CustomLock  {
         lockingThread=Thread.currentThread();
     }
 
+
     /**
      *  释放锁
      *   修改状态
