@@ -11,13 +11,9 @@ package com.handbook.java.thread;
  * @Version 1.0
  **/
 public class WaitDemo {
+     private int value;
     public static void main(String[] args) throws InterruptedException {
-     new WaitDemo().test();
-     char a='字';
+
     }
-    public synchronized  void test() throws InterruptedException {
-        System.out.println("start "+Thread.currentThread().getName());
-        wait();
-        System.out.println("end");
-    }
+
 }
