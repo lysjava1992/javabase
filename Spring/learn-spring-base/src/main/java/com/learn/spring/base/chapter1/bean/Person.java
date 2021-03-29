@@ -3,21 +3,11 @@ package com.learn.spring.base.chapter1.bean;
 import java.util.List;
 import java.util.Map;
 
-/**
- * 天行健，君子以自强不息
- * 地势坤，君子以厚德载物
- *
- * @ClassName Car
- * @Description TODO
- * @Author Mr.Luan
- * @Date 2020/3/14 19:20
- * @Version 1.0
- **/
 public class Person {
     private int age;
     private String name;
     private List<String> cours;
-    private Map<String,String>reportCard;
+    private Map<String,String> reportCard;
 
     public Person() {
     }

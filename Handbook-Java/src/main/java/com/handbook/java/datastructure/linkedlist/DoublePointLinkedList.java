@@ -10,6 +10,7 @@ public class DoublePointLinkedList {
             node=temp;
             node.pre=null;
         }
+
         Node  fastPointer=node;
         Node  slowPointer=node;
         while (fastPointer.next!=null){
