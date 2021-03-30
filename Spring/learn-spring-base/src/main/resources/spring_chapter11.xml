@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="parts" class="com.learn.spring.base.chapter11.Parts" scope="prototype"/>
+    <bean id="partsManager" class="com.learn.spring.base.chapter11.PartsManager"/>
+    <bean id="machine" class="com.learn.spring.base.chapter11.Machine">
+        <constructor-arg ref="partsManager"/>
+        <property name="parts" ref="parts"/>
+    </bean>
+    <bean id="machine2" class="com.learn.spring.base.chapter11.Machine2">
+        <lookup-method name="installParts" bean="parts"/>
+    </bean>
+
+    <bean id="myValueCalculator" class="com.learn.spring.base.chapter11.MyValueCalculator">
+        <replaced-method name="computeValue" replacer="replacementComputeValue">
+           <arg-type>String</arg-type>
+        </replaced-method>
+    </bean>
+  <bean id="replacementComputeValue" class="com.learn.spring.base.chapter11.ReplacementComputeValue"/>
+</beans>
