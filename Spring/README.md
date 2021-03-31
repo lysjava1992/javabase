@@ -1,5 +1,5 @@
 ```cpp
-https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/core.html#%E9%9B%86%E8%A3%85%E7%AE%B1%E5%BB%B6%E4%BC%B8%E7%82%B9
+https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/core.html#%E9%9B%86%E8%A3%85%E7%AE%B1%E5%BB%B6%E4%BC%B8%E7%82%B9`
 https://docs.spring.io/spring-framework/docs/current/reference/html/index.html
 ```
 
@@ -16,3 +16,27 @@ https://docs.spring.io/spring-framework/docs/current/reference/html/index.html
   声明周期控制
 ## chapter14
   Bean定义继承
+## chapter15
+  Spring 扩展实例化后 后置处理器【BeanPostProcessor】
+        扩展实例化前  元数据处理【BeanFactoryPostProcessor】
+## chapter16
+  BeanFactory Spring容器
+  FactoryBean Spring容器创建Bean的模式
+  **FactoryBean由BeanFactory创建**
+## chapter17
+   纯注解版Spring
+   i18n 国际化
+## chapter18
+   Spring事件
+   自定义事件
+
+## chapter19
+  Resource资源
+ - UrlResource
+ - ClassPathResource
+ - FileSystemResource
+ - ServletContextResource 
+ - InputStreamResource
+ - ByteArrayResource
+
+   
