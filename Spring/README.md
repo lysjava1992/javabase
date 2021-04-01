@@ -38,5 +38,12 @@ https://docs.spring.io/spring-framework/docs/current/reference/html/index.html
  - ServletContextResource 
  - InputStreamResource
  - ByteArrayResource
-
-   
+## chapter20
+   Validator验证接口
+## chapter21
+   Property属性编译器
+## chapter22
+ String 类型转换器
+ 自定义校验
+## chapter23
+ Spring SpEL表达式
