@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.spel.SpelParserConfiguration;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.SimpleEvaluationContext;
 
@@ -18,14 +19,12 @@ public class SpELTest {
     }
     @Test
     public void test(){
-
         Expression exp = parser.parseExpression("'Hello World'");
         String message = (String) exp.getValue();
         System.out.println(message);
     }
     @Test
     public void test1(){
-
         Expression exp = parser.parseExpression("'Hello World'.concat('!')");
         String message = (String) exp.getValue();
         System.out.println(message);
@@ -33,7 +32,6 @@ public class SpELTest {
 
     @Test
     public void test2(){
-
         Expression exp = parser.parseExpression("'Hello World'.bytes");
         byte[] bytes = (byte[]) exp.getValue();
         System.out.println(bytes );
@@ -50,8 +48,11 @@ public class SpELTest {
         exp = parser.parseExpression("name == 'Nikola Tesla'");
         boolean result = exp.getValue(tesla, Boolean.class);
       // result == true
-
     }
+
+    /**
+     * 了解评估上下文
+     */
     @Test
     public void test4(){
         Simple simple=new Simple();
@@ -60,12 +61,21 @@ public class SpELTest {
         //parser.parseExpression("booleanList[0]").setValue(context, simple, "false");
         Expression exp = parser.parseExpression("booleanList[0]");
         System.out.println(exp.getValue(simple));
-         exp.setValue(context,simple, "false");
+        //setValue 需要通过context来感知simple 中‘booleanList[0]’的类型
+        // 以及将value转换为对应的类型
+        exp.setValue(context,simple, "false");
         Boolean b = simple.booleanList.get(0);
         System.out.println(b);
     }
     @Test
-    public void test5(){}
+    public void test5(){
+        SpelParserConfiguration config=new SpelParserConfiguration(true,true);
+        ExpressionParser parser=new SpelExpressionParser(config);
+        Expression expression=parser.parseExpression("list[3]");
+        Demo demo=new Demo();
+        Object o=expression.getValue(demo);
+        System.out.println(0);
+    }
     @Test
     public void test6(){}
 }

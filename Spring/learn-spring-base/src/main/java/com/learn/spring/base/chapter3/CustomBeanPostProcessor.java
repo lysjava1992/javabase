@@ -2,6 +2,7 @@ package com.learn.spring.base.chapter3;
 
 import com.learn.spring.base.chapter3.bean.DoServiceImpl;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 
 import java.lang.reflect.InvocationHandler;
@@ -17,9 +18,9 @@ import java.lang.reflect.Proxy;
  * @Date 2020/3/14 20:19
  * @Version 1.0
  **/
-public class CustomBeanPostProcessor implements BeanPostProcessor {
+public class CustomBeanPostProcessor implements BeanPostProcessor , InitializingBean {
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-           System.out.println("准备初始化.......");
+           System.out.println("实例化完毕准备初始化.......");
         return bean;
     }
 
@@ -61,9 +62,12 @@ public class CustomBeanPostProcessor implements BeanPostProcessor {
                     return result+" 增强【"+System.currentTimeMillis()+"】";
                 }
             });
-
               return proxy;
         }
         return bean;
+    }
+
+    public void afterPropertiesSet() throws Exception {
+        System.out.println("------Bean实例化完毕-----");
     }
 }
