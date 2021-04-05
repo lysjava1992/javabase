@@ -18,6 +18,10 @@ https://docs.spring.io/spring-framework/docs/current/reference/html/index.html
  注解扫描
 ## chapter5 
  AOP 通知类型
+## chapter6 
+  AOP xml配置
+## chapter7
+  AOP xml配置
 ## chapter11 
  查找方法注入，任意方法替换
  ApplicationContextAware接口
@@ -60,3 +64,6 @@ https://docs.spring.io/spring-framework/docs/current/reference/html/index.html
  Spring SpEL表达式
 ## chapter24
   @AspectJ 
+## chapter25
+   AspectJ 框架
+

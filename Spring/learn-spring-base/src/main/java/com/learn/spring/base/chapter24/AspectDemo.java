@@ -2,11 +2,14 @@ package com.learn.spring.base.chapter24;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Component
 @Aspect
+@EnableAspectJAutoProxy(proxyTargetClass=true,exposeProxy=true)
 @Order(1)
 public class AspectDemo {
 
