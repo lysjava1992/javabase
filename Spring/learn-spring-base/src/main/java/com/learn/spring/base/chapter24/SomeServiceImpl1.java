@@ -2,6 +2,7 @@ package com.learn.spring.base.chapter24;
 
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
 
 @Primary
 @Service

@@ -28,7 +28,6 @@ public class MemberDao extends BaseDaoSupport<Member,Long> {
     private JdbcTemplate template;
 
 
-
     @Override
     protected String getPKColumn() {
         return "id";

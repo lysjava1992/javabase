@@ -4,7 +4,6 @@ https://docs.spring.io/spring-framework/docs/current/reference/html/index.html
 ```
 
 # `learn-spring-base`
-
  该模块是以Java独立启动的模式（非web环境）来演示Spring-IOC的相关核心功能
 ## chapter1
   普通注入 
@@ -17,7 +16,17 @@ https://docs.spring.io/spring-framework/docs/current/reference/html/index.html
 ## chapter4
  注解扫描
 ## chapter5 
- AOP 通知类型
+  AOP xml配置1(不推荐)
+## chapter6
+  AOP xml配置2
+## chapter7
+  AOP xml配置3
+## chapter8
+  AOP 基于@Aspect
+## chapter9
+ Spring JDBC
+## chapter10
+ 编程式事务管理
 ## chapter11 
  查找方法注入，任意方法替换
  ApplicationContextAware接口
@@ -59,4 +68,8 @@ https://docs.spring.io/spring-framework/docs/current/reference/html/index.html
 ## chapter23
  Spring SpEL表达式
 ## chapter24
-  @AspectJ 
+  @AspectJ
+## chapter25
+  MappingSqlQuery
+## chapter26
+   Spring+Hibernate XML

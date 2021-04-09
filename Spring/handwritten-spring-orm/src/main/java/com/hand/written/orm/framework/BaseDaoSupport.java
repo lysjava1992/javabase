@@ -60,15 +60,11 @@ import com.alibaba.fastjson.util.TypeUtils;
  */
 public abstract class BaseDaoSupport<T extends Serializable, PK extends Serializable>{
 	private Logger log = Logger.getLogger(BaseDaoSupport.class);
-
 	private String tableName = "";
-
 	private JdbcTemplate jdbcTemplateWrite;
 	private JdbcTemplate jdbcTemplateReadOnly;
-
 	private DataSource dataSourceReadOnly;
 	private DataSource dataSourceWrite;
-
 	private EntityOperation<T> op;
 
 	@SuppressWarnings("unchecked")

@@ -20,7 +20,6 @@ import java.util.List;
 public class CustomerDao {
     @Resource(name="jdbcTemplate")
     private JdbcTemplate jdbcTemplate;
-
     @Resource(name="transactionTemplate")
     private TransactionTemplate  transactionTemplate;
     public int add(Customer customer) {
