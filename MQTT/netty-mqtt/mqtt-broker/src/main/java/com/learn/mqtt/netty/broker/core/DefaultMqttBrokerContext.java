@@ -1,7 +1,9 @@
 package com.learn.mqtt.netty.broker.core;
 
+import com.learn.mqtt.netty.broker.message.RetainMessage;
 import com.learn.mqtt.netty.broker.session.ClientSession;
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.mqtt. *;
 import lombok.extern.slf4j.Slf4j;
@@ -22,12 +24,19 @@ public class DefaultMqttBrokerContext implements  MqttBrokerContext {
     /**
      *  当前不支持匹配
      * String 主题
-     * List<String>订阅主题的客户端ID
+     * Set<String>订阅主题的客户端ID
      */
     private ConcurrentHashMap<String, Set<String>>  topicMap=new ConcurrentHashMap();
+
+    /**
+     * <String(主题),MqttMessage（最后一条retain消息）>
+     */
+    private ConcurrentHashMap<String, RetainMessage >   retainMessageCache=new ConcurrentHashMap<>();
+
     public ClientSession getClientSession(String clientId) {
         return sessionMap.get(clientId);
     }
+
 
     public void registerClient(MqttConnectMessage mqttMsg, ChannelHandlerContext ctx) {
         String clientId=mqttMsg.payload().clientIdentifier();
@@ -74,20 +83,43 @@ public class DefaultMqttBrokerContext implements  MqttBrokerContext {
        String topic= mqttMsg.variableHeader().topicName();
        Set<String> clientNames=topicMap.get(topic);
        if(clientNames!=null){
+           byte[] messageBytes = new byte[mqttMsg.payload().readableBytes()];
+           mqttMsg.payload().getBytes(mqttMsg.payload().readerIndex(), messageBytes);
            for (String clientName : clientNames) {
-               ByteBuf buf=mqttMsg.content();
                ClientSession session= sessionMap.get(clientName);
-               MqttPublishMessage message=createMqttPublishMsg(session,topic,buf);
-               buf.retain();
-              session.getChannel().writeAndFlush(message);
+               MqttPublishMessage message=createMqttPublishMsg(session,topic,mqttMsg.fixedHeader().qosLevel(),messageBytes);
+               session.getChannel().writeAndFlush(message);
            }
        }
-
     }
-    protected MqttPublishMessage createMqttPublishMsg(ClientSession session, String topic, ByteBuf payload) {
+
+    @Override
+    public void updateRetainMessage(String topic,  RetainMessage retainMessage) {
+       retainMessageCache.put(topic,retainMessage);
+    }
+
+    @Override
+    public void removeRetainMessage(String topic) {
+        retainMessageCache.remove(topic);
+    }
+
+    @Override
+    public RetainMessage getRetainMessage(String topic) {
+        return retainMessageCache.get(topic);
+    }
+
+    /**
+     *
+     * 消息由 broker->client
+     *  订阅者
+     * @return
+     */
+    protected MqttPublishMessage createMqttPublishMsg(ClientSession session, String topic, MqttQoS qos, byte[] messageBytes) {
+        //订阅者消息质量
+        MqttTopicSubscription mqttTopic=session.getTopic(topic);
         MqttFixedHeader mqttFixedHeader =
-                new MqttFixedHeader(MqttMessageType.PUBLISH, false, AT_MOST_ONCE , false, 0);
-        MqttPublishVariableHeader header = new MqttPublishVariableHeader(topic, session.getMsgIdSeq().get());
-        return new MqttPublishMessage(mqttFixedHeader, header, payload);
+                new MqttFixedHeader(MqttMessageType.PUBLISH, false, mqttTopic.qualityOfService().value()<=qos.value()? mqttTopic.qualityOfService() : qos, false, 0);
+        MqttPublishVariableHeader header = new MqttPublishVariableHeader(topic, mqttFixedHeader.qosLevel().value()>0?session.getMsgIdSeq().get():0);
+        return new MqttPublishMessage(mqttFixedHeader, header, Unpooled.buffer().writeBytes(messageBytes));
     }
 }

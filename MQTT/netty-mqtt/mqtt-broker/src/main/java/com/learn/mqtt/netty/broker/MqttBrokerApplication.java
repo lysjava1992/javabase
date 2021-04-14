@@ -7,7 +7,6 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -27,6 +26,7 @@ public class MqttBrokerApplication {
         this.workGroupCount=build.workGroupCount;
         this.keepAline=build.keepAline;
     }
+
     public void start() throws InterruptedException {
         bossGroup=new NioEventLoopGroup(bossGroupCount);
         workGroup=new NioEventLoopGroup(workGroupCount);

@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -29,5 +30,8 @@ public class ClientSession {
 
     public void addSubscriptionSet(MqttTopicSubscription subscription) {
         this.subscriptionSet.add(subscription);
+    }
+    public MqttTopicSubscription getTopic(String topic){
+       return subscriptionSet.stream().filter(mqttTopic-> topic.equals(mqttTopic.topicName())).findFirst().get();
     }
 }
