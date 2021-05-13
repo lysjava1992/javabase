@@ -35,7 +35,7 @@ public class ActorMailbox implements ActorCtx {
     /**
      * 自己的Actor
      */
-   private Actor actor;
+   private final Actor actor;
     /**
      * 父Actor地址
      */
@@ -49,7 +49,14 @@ public class ActorMailbox implements ActorCtx {
     private final AtomicBoolean destroy=new AtomicBoolean(false);
    // 状态 :是否工作状态
     private final AtomicBoolean ready=new AtomicBoolean(false);
-
+    /**
+     * 状态 : 工作状态
+     *  邮箱接收消息 Actor  actor.process(msg)处理
+     *  消息接收与处理为异步
+     *   actor.process(msg)是同步
+     *
+     */
+    private final AtomicBoolean busy=new AtomicBoolean(false);
     /**
      * 邮箱初始化
      *  即初始化相应的Actor
@@ -88,7 +95,9 @@ public class ActorMailbox implements ActorCtx {
     private void tryProcessQueue() {
         if(ready.get()){
             if(!priorityQueue.isEmpty()||!normQueue.isEmpty()){
-                dispatcher.getExecutor().execute(this::processMailbox);
+                if(busy.compareAndSet(false,true))
+                    // 繁忙时不再执行
+                   dispatcher.getExecutor().execute(this::processMailbox);
             }
         }
     }
@@ -115,6 +124,7 @@ public class ActorMailbox implements ActorCtx {
             }
         }
         if(empty){
+            busy.set(false);
             dispatcher.getExecutor().execute(this::tryProcessQueue);
         }else {
             dispatcher.getExecutor().execute(this::processMailbox);

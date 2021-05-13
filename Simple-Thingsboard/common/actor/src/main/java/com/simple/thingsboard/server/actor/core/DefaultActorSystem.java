@@ -91,7 +91,8 @@ public class DefaultActorSystem implements ActorSystem {
                     throw new RuntimeException("父级Actor[" + parent + "] 未注册");
                 }
             }
-            ActorMailbox mailbox = new ActorMailbox(settings, this, dispatcher, actorId, parentRfe);
+            ActorMailbox mailbox = new ActorMailbox(settings, this, dispatcher, actorId,actor, parentRfe);
+            actorMailbox=mailbox;
             actors.put(actorId, mailbox);
             mailbox.initActor();
             if (parent != null) {
