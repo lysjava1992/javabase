@@ -1,0 +1,24 @@
+quota:
+  host:
+    # 单个主机在间隔时间内允许的最大API请求数
+    limit: 5
+    # 间隔时间 毫秒
+    intervalMs: 10000
+
+    # （检测时的时间-最后一次访问时间）必须大于intervalMs
+    #  ip 访问保存的生存时间
+    #  即ip最后一次访问时间，之后长时间不再访问则不再维持该IP
+    ttlMs: 20000
+
+    # 检测ttlMs的周期时间
+    cleanPeriodMs:  300000
+
+    # 启用IP限制
+    enabled: true
+    # IP白名单
+    whitelist: localhost,127.0.0.1
+    # IP黑名单
+    blacklist:
+    log:
+      topSize: 10
+      intervalMin: 2
