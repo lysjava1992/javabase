@@ -17,6 +17,9 @@
         <module>message</module>
         <module>actor</module>
         <module>queue</module>
+        <module>data</module>
+        <module>dao</module>
+        <module>util</module>
     </modules>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

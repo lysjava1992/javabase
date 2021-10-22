@@ -6,20 +6,23 @@
     <description>ThingsBoard simple</description>
     <packaging>pom</packaging>
 
-
-
     <groupId>com.simple</groupId>
     <artifactId>simple-thingsboard</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-
     <modules>
         <module>common</module>
+        <module>application</module>
     </modules>
 
     <properties>
         <java.version>1.8</java.version>
         <lombok.version>1.18.20</lombok.version>
+        <spring-boot.version>2.3.9.RELEASE</spring-boot.version>
+        <spring.version>5.2.13.RELEASE</spring.version>
+        <postgresql.version>42.2.18</postgresql.version>
+        <jackson.version>2.12.2</jackson.version>
+        <guava.version>28.2-jre</guava.version>
     </properties>
     <dependencies>
         <dependency>
@@ -34,21 +37,89 @@
         <dependencies>
             <!--项目模块-->
             <dependency>
-                <groupId>com.simple</groupId>
+                <groupId>org.simple.common</groupId>
+                <artifactId>util</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.simple.common</groupId>
                 <artifactId>actor</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.simple</groupId>
+                <groupId>org.simple.common</groupId>
                 <artifactId>message</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.simple</groupId>
+                <groupId>org.simple.common</groupId>
                 <artifactId>queue</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.simple.common</groupId>
+                <artifactId>data</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.simple.common</groupId>
+                <artifactId>dao</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!--Spring与SpringBoot-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-jpa</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
 
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context-support</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-tx</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <!--数据库-->
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql.version}</version>
+            </dependency>
+            <!-- 通用处理-->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+               <version>${guava.version}</version>
+            </dependency>
             <!--日志-->
             <dependency>
                 <groupId>org.slf4j</groupId>

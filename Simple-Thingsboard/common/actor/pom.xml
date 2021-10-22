@@ -19,7 +19,7 @@
     </properties>
 <dependencies>
     <dependency>
-        <groupId>com.simple</groupId>
+        <groupId>org.simple.common</groupId>
         <artifactId>message</artifactId>
     </dependency>
     <dependency>
