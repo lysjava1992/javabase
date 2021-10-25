@@ -15,8 +15,7 @@ https://docs.spring.io/spring-framework/docs/current/reference/html/index.html
  代理增强
 ## chapter4
  注解扫描
-## chapter5 
-<<<<<<< HEAD
+## chapter5
   AOP xml配置1(不推荐)
 ## chapter6
   AOP xml配置2
@@ -27,14 +26,7 @@ https://docs.spring.io/spring-framework/docs/current/reference/html/index.html
 ## chapter9
  Spring JDBC
 ## chapter10
- 编程式事务管理
-=======
- AOP 通知类型
-## chapter6 
-  AOP xml配置
-## chapter7
-  AOP xml配置
->>>>>>> 9f719d1f3c36f64afdf53d32a9ce89827f8acba5
+  编程式事务管理
 ## chapter11 
  查找方法注入，任意方法替换
  ApplicationContextAware接口
@@ -76,7 +68,6 @@ https://docs.spring.io/spring-framework/docs/current/reference/html/index.html
 ## chapter23
  Spring SpEL表达式
 ## chapter24
-<<<<<<< HEAD
   @AspectJ
 ## chapter25
   MappingSqlQuery
@@ -86,5 +77,3 @@ https://docs.spring.io/spring-framework/docs/current/reference/html/index.html
   @AspectJ 
 ## chapter25
    AspectJ 框架
-
->>>>>>> 9f719d1f3c36f64afdf53d32a9ce89827f8acba5
