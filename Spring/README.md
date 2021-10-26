@@ -73,7 +73,5 @@ https://docs.spring.io/spring-framework/docs/current/reference/html/index.html
   MappingSqlQuery
 ## chapter26
    Spring+Hibernate XML
-=======
-  @AspectJ 
 ## chapter25
    AspectJ 框架

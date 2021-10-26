@@ -37,6 +37,7 @@ public class CustomRealmOne implements Realm {
               if(!"123456".equals(password)){
                   throw new IncorrectCredentialsException();
               }
+
         return new SimpleAuthenticationInfo(username,password,getName());
     }
 }
