@@ -24,7 +24,7 @@
     </bean >
 
     <!--构造方法注入 多例-->
-    <bean id="person2" class="com.learn.spring.base.chapter1.bean.Person" scope="prototype">
+    <bean id="person2" class="com.learn.spring.base.chapter1.bean.Person" scope="prototype" >
         <constructor-arg  name="age" value="21" />
         <constructor-arg name="name" value="李四"/>
     </bean>

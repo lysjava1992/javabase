@@ -24,7 +24,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * @create: 2020-04-02 15:57
  **/
 @Configuration
+//1: 加载了WebSecurityConfiguration配置类, 配置安全认证策略。
+// 2: 加载了AuthenticationConfiguration
+
 @EnableWebSecurity
+
+//spring方法级安全
+
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
      @Autowired
@@ -48,7 +54,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
        http.authorizeRequests()
            .antMatchers(HttpMethod.POST,"/login")
            .permitAll()
-           .anyRequest().authenticated()
+           .anyRequest()
+           .authenticated()
            .and()
            .httpBasic()
            .and()

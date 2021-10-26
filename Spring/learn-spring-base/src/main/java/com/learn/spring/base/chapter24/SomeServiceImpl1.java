@@ -7,7 +7,9 @@ import org.springframework.transaction.PlatformTransactionManager;
 @Primary
 @Service
 public class SomeServiceImpl1 implements SomeService{
+
     public void doWork() {
+
        System.out.println("--[ 1 : doWork() ]--");
     }
 
