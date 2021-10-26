@@ -83,7 +83,7 @@ SpringSecurity 详细配置
 # 		  learn-spring-boot-chapter11 
 
 ```
-SpringSecurity+JWT 无状态登录案例
+SpringSecurity+JWT+JPA 无状态登录案例
 ```
 
 # 		  learn-spring-boot-chapter12 
@@ -97,5 +97,13 @@ Spring StateMachine 状态机
 
 ```
 Quartz 定时任务
+```
+# 
+
+
+# 		  learn-spring-boot-chapter14
+
+```
+HTTP限流
 ```
 # 

@@ -14,11 +14,16 @@ import java.nio.charset.Charset;
 public class MinaTimeServer {
     public static void main(String[] args) throws IOException {
         IoAcceptor acceptor=new NioSocketAcceptor();
-        acceptor.getFilterChain().addLast("logger",new LoggingFilter());
+//        acceptor.getFilterChain().addLast("logger",new LoggingFilter());
+        // 解码器 按行读取解码
         acceptor.getFilterChain().addLast("codec",new ProtocolCodecFilter(new TextLineCodecFactory(Charset.forName("UTF-8"))));
+       // 处理的handler
         acceptor.setHandler(new TimeServerHandler());
         acceptor.getSessionConfig().setReadBufferSize(2048);
+
         acceptor.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE,10);
+
+
         acceptor.bind(new InetSocketAddress(8088));
 
     }

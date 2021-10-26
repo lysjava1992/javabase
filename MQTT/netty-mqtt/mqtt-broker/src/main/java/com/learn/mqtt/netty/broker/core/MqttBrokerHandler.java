@@ -141,11 +141,9 @@ public class MqttBrokerHandler extends ChannelInboundHandlerAdapter {
             case AT_LEAST_ONCE:
                 //最少一次
                  // 1.存储
-                 // TODO
                  // 2.发布
                 context.publish(publishMessage);
                 // 3.删除
-                // TODO
                 // 4.返回确认
                 ctx.writeAndFlush(createPubAckMessage(publishMessage.variableHeader().packetId()));
                 break;

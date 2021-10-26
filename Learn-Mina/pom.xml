@@ -23,12 +23,27 @@
          <artifactId>log4j</artifactId>
          <version>1.2.17</version>
      </dependency>
-
      <dependency>
          <groupId>org.slf4j</groupId>
          <artifactId>slf4j-log4j12</artifactId>
          <version>1.6.6</version>
      </dependency>
-
+     <dependency>
+         <groupId>io.moquette</groupId>
+         <artifactId>moquette-broker</artifactId>
+         <version>0.12.1</version>
+     </dependency>
  </dependencies>
+    <repositories>
+        <repository>
+            <id>bintray</id>
+            <url>https://jcenter.bintray.com</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 </project>

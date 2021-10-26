@@ -16,9 +16,7 @@ public class TimeServerHandler extends IoHandlerAdapter {
 
     @Override
     public void messageReceived(IoSession session, Object message) throws Exception {
-        System.out.println("-------------------");
         String str=message.toString();
-        System.out.println("---str----"+str);
         if(!str.trim().equalsIgnoreCase("quit")){
             session.closeNow();
             return;

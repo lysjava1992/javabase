@@ -1,0 +1,7 @@
+INFO NioProcessor-2 org.apache.mina.filter.logging.LoggingFilter - CREATED
+INFO NioProcessor-2 org.apache.mina.filter.logging.LoggingFilter - OPENED
+INFO NioProcessor-2 org.apache.mina.filter.logging.LoggingFilter - RECEIVED: HeapBuffer[pos=0 lim=4 cap=2048: 71 75 69 74]
+DEBUG NioProcessor-2 org.apache.mina.filter.codec.ProtocolCodecFilter - Processing a MESSAGE_RECEIVED for session 1
+INFO NioProcessor-2 org.apache.mina.filter.logging.LoggingFilter - IDLE
+INFO NioProcessor-2 org.apache.mina.filter.logging.LoggingFilter - IDLE
+INFO NioProcessor-2 org.apache.mina.filter.logging.LoggingFilter - IDLE
