@@ -2,6 +2,37 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
-      <context:component-scan base-package="com.shiro.web"/>
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+      <!--spring.xml可以不配置
+          但springmvc.xml必须配置-->
+      <!--springMvc是子容器，可以访问父容器
+          但是@Controller注解是SpringMVC而非Spring的
+          即虽然Spring配置中也开启了包扫描
+          但spring容器并不会解析controller层
+          所以此处必须开启-->
+      <context:component-scan base-package="com.shiro.web.controller"/>
+
+      <!--处理器映射器/处理器适配器-->
+      <mvc:annotation-driven >
+            <mvc:message-converters register-defaults="true">
+                  <!-- 消息转换器  返回中文字符串乱码-->
+                  <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                        <property name="supportedMediaTypes" value="text/html;charset=UTF-8"/>
+                  </bean>
+            </mvc:message-converters>
+      </mvc:annotation-driven>
+
+
+      <!-- 静态资源默认servlet配置  -->
+      <mvc:resources mapping="/resources/**" location="/resources/" />
+      <!-- 定义视图解析器 -->
+      <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+            <property name="prefix" value="/WEB-INF/view/"/>
+            <property name="suffix" value=".html"/>
+            <property name="contentType" value="text/html;charset=UTF-8" />
+      </bean>
+      <!-- 将SpringMVC不能处理的请求交给tomcat -->
+      <mvc:default-servlet-handler />
 </beans>

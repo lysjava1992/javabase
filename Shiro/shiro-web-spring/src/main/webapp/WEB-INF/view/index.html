@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>用户</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="http://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-6 col-sm-3">
+        </div>
+        <div class="col-xs-6 col-sm-6">
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">
+                    用户
+                    <button type="button" class="btn btn-primary">新增</button>
+                </div>
+                <div class="panel-body">
+                </div>
+                <table id="table_id_example" class="display" cellspacing="0" width="100%" >
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>用户名</th>
+                        <th>角色</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    var  columns= [
+        { "data": 'id' },
+        { "data": 'username' },
+        { "data": 'role' },
+    ]
+    $(document).ready( function () {
+        $('#table_id_example').DataTable({
+            ajax: {
+                url: "/user/find",
+                type: "GET",
+                "dataSrc": function (result) {
+                     console.log(result);
+                    return result;
+                },
+            },
+            "oLanguage": {//下面是一些汉语翻译
+                "sSearch": "搜索",
+                "sLengthMenu": "每页显示 _MENU_ 条记录",
+                "sZeroRecords": "没有检索到数据",
+                "sInfo": "显示 _START_ 至 _END_ 条 &nbsp;&nbsp;共 _TOTAL_ 条",
+                "sInfoFiltered": "(筛选自 _MAX_ 条数据)",
+                "sInfoEmtpy": "没有数据",
+                "sProcessing": "正在加载数据...",
+                "oPaginate":
+                    {
+                        "sFirst": "首页",
+                        "sPrevious": "前一页",
+                        "sNext": "后一页",
+                        "sLast": "末页"
+                    }
+            },
+
+            "columnDefs": [
+                // {
+                //     "render": function ( data, type, row ) {
+                //         // data 该格的数据 row 该行
+                //         var html = '';
+                //         return html;
+                //     },
+                //     "data" : null,
+                //     "targets": 5  //第几列 0开始
+                // },
+            ],
+            "columns": columns
+        });
+    } );
+
+</script>
+</body>
+</html>

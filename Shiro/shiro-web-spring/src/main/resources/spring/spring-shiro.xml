@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+      <!-- 声明shiro过滤器 -->
+      <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+            <!--管理器-->
+            <property name="securityManager" ref="securityManager"/>
+            <property name="loginUrl" value="/login"/>
+            <!-- 自定义的过滤器链，从上向下执行，一般将`/**`放到最下面 -->
+            <property name="filterChainDefinitions">
+                  <value>
+                        /login = anon
+                        /auth/login=anon
+                        /** = user
+                  </value>
+            </property>
+      </bean>
+
+
+
+      <!-- 安全管理器  交互入口-->
+      <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+            <property name="realm" ref="userRealm"/>
+      </bean>
+
+      <!-- Realm实现 -->
+      <bean id="userRealm" class="com.shiro.web.component.UserRealm">
+      </bean>
+
+      <!-- Shiro生命周期处理器-->
+      <bean id="lifecycleBeanPostProcessor"
+            class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+</beans>
