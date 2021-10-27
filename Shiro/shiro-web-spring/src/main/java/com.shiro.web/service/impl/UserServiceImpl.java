@@ -2,14 +2,23 @@ package com.shiro.web.service.impl;
 
 import com.shiro.web.model.User;
 import com.shiro.web.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class UserServiceImpl implements UserService {
+    @Autowired
+    JdbcTemplate jdbcTemplate;
     private static AtomicInteger atomicInteger=new AtomicInteger(0);
-    private static List<User> USERS_DATA=new ArrayList();
+    private static List<User> USERS_DATA=new ArrayList<>();
     static {
         User user= new User(atomicInteger.getAndIncrement(),"king","123456");
         user.setRole("admin");
@@ -28,6 +37,19 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     public User findByName(String name) {
+        String selectSql = "select * from users";
+        List query = jdbcTemplate.query(selectSql, new RowMapper() {
+            @Nullable
+            @Override
+            public Object mapRow(ResultSet resultSet, int i) throws SQLException {
+                User u = new User();
+                u.setId(resultSet.getInt(1));
+                u.setUsername(resultSet.getString(2));
+                u.setPassword(resultSet.getString(3));
+                return u;
+            }
+        });
+        query.forEach(o -> System.out.println(o));
         for (User user : USERS_DATA) {
             if(user.getUsername().equals(name)){
                 return user;
