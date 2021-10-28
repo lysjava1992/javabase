@@ -2,7 +2,10 @@ package com.shiro.web.service.impl;
 
 import com.shiro.web.model.User;
 import com.shiro.web.service.UserService;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.lang.Nullable;
@@ -17,76 +20,69 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class UserServiceImpl implements UserService {
     @Autowired
     JdbcTemplate jdbcTemplate;
-    private static AtomicInteger atomicInteger=new AtomicInteger(0);
-    private static List<User> USERS_DATA=new ArrayList<>();
-    static {
-        User user= new User(atomicInteger.getAndIncrement(),"king","123456");
-        user.setRole("admin");
-        Set<String> stringSet=new HashSet<>();
-        stringSet.add("user:*");
-        user.setPermissions(stringSet);
-        USERS_DATA.add(user);
 
-        User user2=new User(atomicInteger.getAndIncrement(),"LiSi","123456");
-        user2.setRole("user");
-        stringSet=new HashSet<>();
-        stringSet.add("user:find");
-        stringSet.add("user:update");
-        user.setPermissions(stringSet);
-        USERS_DATA.add(user2);
-    }
+    RowMapper<User> rowMapper=new RowMapper<User>() {
+        @Override
+        public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+            User u = new User();
+            u.setId(rs.getInt(1));
+            u.setUsername(rs.getString(2));
+            u.setPassword(rs.getString(3));
+            u.setRole(rs.getString(4));
+            return u;
+        }
+    };
     @Override
     public User findByName(String name) {
-        String selectSql = "select * from users";
-        List query = jdbcTemplate.query(selectSql, new RowMapper() {
-            @Nullable
-            @Override
-            public Object mapRow(ResultSet resultSet, int i) throws SQLException {
-                User u = new User();
-                u.setId(resultSet.getInt(1));
-                u.setUsername(resultSet.getString(2));
-                u.setPassword(resultSet.getString(3));
-                return u;
-            }
-        });
-        query.forEach(o -> System.out.println(o));
-        for (User user : USERS_DATA) {
-            if(user.getUsername().equals(name)){
-                return user;
-            }
-        }
-        return null;
-    }
+        System.out.println("权限查询----------------------");
+        User user=null;
+          String selectSql = "select * from users where  username = ?";
+          try {
+              user= jdbcTemplate.queryForObject(selectSql, rowMapper,name);
+          }catch (EmptyResultDataAccessException e){
+          }
+          if(user!=null){
+              selectSql = "select a.identify from permission a, role_permission b " +
+                      "where a.id=b.permissionId " +
+                      "and b.role=?";
+              List<String>permissions=  jdbcTemplate.query(selectSql, (rs, rowNum) -> rs.getString(1),user.getRole());
+              user.setPermissions(new HashSet<>(permissions));
 
-    @Override
-    public List<User> find() {
-        return new ArrayList<User>(USERS_DATA);
-    }
-
-    @Override
-    public User add(User user) {
-        user.setId(atomicInteger.getAndIncrement());
-        USERS_DATA.add(user);
+          }
         return user;
     }
 
     @Override
+    public List<User> find() {
+
+        String selectSql = "select * from users";
+        List<User> query = jdbcTemplate.query(selectSql, rowMapper);
+        return query;
+    }
+
+    @Override
+    public User add(User user) {
+        user.setPassword(processPassword(user));
+        String sql = "INSERT INTO users(username,password,role) values(?,?,?);";
+        jdbcTemplate.update(sql, user.getUsername(), user.getPassword(),user.getRole());
+        return findByName(user.getUsername());
+    }
+
+    private String processPassword(User user) {
+        return    new SimpleHash("md5",user.getPassword(),user.getUsername(),2).toHex();
+    }
+
+    @Override
     public User update(User user) {
-        for (User us : USERS_DATA) {
-            if(user.getId()==us.getId()){
-                us.setPassword(us.getPassword());
-                return user;
-            }
-        }
+        String sql = "update users  set password=?  where id=? ;";
+        jdbcTemplate.update(sql,user.getPassword(),user.getId());
         return user;
     }
 
     @Override
     public void delete(int id) {
-        for (User user : USERS_DATA) {
-             if(user.getId()==id){
-                 USERS_DATA.remove(user);
-             }
-        }
+       String sql="delete from users where id=? ;";
+        jdbcTemplate.update(sql,id);
     }
+
 }

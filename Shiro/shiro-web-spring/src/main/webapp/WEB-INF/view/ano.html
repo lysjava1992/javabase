@@ -3,14 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>用户</title>
-    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
-
-
-    <script type="text/javascript" charset="utf8" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="http://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
 </head>
 <body>
 
@@ -28,40 +21,15 @@
         </div>
     </div>
 </nav>
-<div class="container">
-    <div class="row">
-        <div class="col-xs-6 col-sm-3">
-        </div>
-        <div class="col-xs-6 col-sm-6">
-            <div class="panel panel-default">
-                <!-- Default panel contents -->
-                <div class="panel-heading">
-                    用户
-                    <button class="btn btn-primary " data-toggle="modal" data-target="#myModal">
-                        新增
-                    </button>
-                </div>
-                <div class="panel-body">
-                </div>
-                <table id="table_id_example" class="display" cellspacing="0" width="100%" >
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>用户名</th>
-                        <th>角色</th>
-                        <th>操作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
+<div class="jumbotron">
+    <div class="container">
+        <h1>提示！</h1>
+        <p>无权限</p>
+        <p><a class="btn btn-primary btn-lg" role="button">
+            暂无更多权限</a>
+        </p>
     </div>
 </div>
-
 
 <!-- 模态框（Modal） -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -179,11 +147,7 @@
             "/user/del",
             {id:data.id},
             function(result){
-                if(result.status){
-                    $('#table_id_example').DataTable().ajax.reload()
-                }else {
-                    alert(result.msg)
-                }
+                $('#table_id_example').DataTable().ajax.reload()
             }
         )
     } );

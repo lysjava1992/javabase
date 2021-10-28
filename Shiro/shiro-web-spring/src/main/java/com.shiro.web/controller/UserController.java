@@ -1,6 +1,7 @@
 package com.shiro.web.controller;
 
 
+import com.shiro.web.model.Result;
 import com.shiro.web.model.User;
 import com.shiro.web.service.UserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -30,11 +31,12 @@ public class UserController {
 
     @RequiresRoles("admin")
     @GetMapping("/del")
-    public void delete(int id) {
+    public Result delete(int id) {
         userService.delete(id);
+        return new Result(true);
     }
 
-    @RequiresPermissions("admin")
+    @RequiresRoles("admin")
     @PostMapping("/add")
     public User save(User user) {
         return userService.add(user);
