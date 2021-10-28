@@ -30,6 +30,7 @@
             <property name="realm" ref="userRealm"/>
             <property name="cacheManager" ref="cacheManager"/>
             <property name="sessionManager" ref="sessionManager"/>
+           <property name="rememberMeManager" ref="rememberMeManager"/>
       </bean>
 
       <!-- Realm实现 -->
@@ -38,7 +39,8 @@
       </bean>
 
       <!-- 凭证匹配器 -->
-      <bean id="hashedCredentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+      <bean id="hashedCredentialsMatcher" class="com.shiro.web.component.RetryLimitHashedCredentialsMatcher">
+            <property name="cacheManager" ref="cacheManager"/>
             <property name="hashAlgorithmName" value="md5"/>
             <property name="hashIterations" value="2"/>
             <property name="storedCredentialsHexEncoded" value="true"/>
@@ -47,9 +49,6 @@
       <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
             <property name="cacheManagerConfigFile" value="classpath:shiro-ehcache.xml"/>
       </bean>
-
-
-
 
       <!-- 会话管理器 -->
       <bean id="sessionManager"
@@ -76,7 +75,9 @@
       <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
             <constructor-arg value="sid"/>
             <property name="httpOnly" value="true"/>
-            <property name="maxAge" value="180000"/>
+            <!-- maxAge表示浏览器cookie最大生存时间
+                -1表示浏览器关闭时失效此Cookie；-->
+            <property name="maxAge" value="-1"/>
       </bean>
 
       <!-- 会话DAO -->
@@ -89,7 +90,19 @@
       <bean id="sessionIdGenerator"
             class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
 
-      <!-- Shiro生命周期处理器-->
+
+    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+        <!--编码加密-->
+        <property name="cipherKey" value="
+          #{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}"/>
+        <property name="cookie" ref="rememberMeCookie"/>
+    </bean>
+    <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg value="rememberMe"/>
+        <property name="httpOnly" value="true"/>
+        <property name="maxAge" value="2592000"/><!-- 30天 -->
+    </bean>
+    <!-- Shiro生命周期处理器-->
       <bean id="lifecycleBeanPostProcessor"
             class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 </beans>

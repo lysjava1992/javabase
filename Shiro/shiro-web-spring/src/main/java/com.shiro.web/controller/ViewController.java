@@ -17,6 +17,7 @@ public class ViewController {
     public String login() {
         return "login";
     }
+
     @RequestMapping(path = {"","/ano"}, method = RequestMethod.GET)
     public String ano() {
         return "ano";

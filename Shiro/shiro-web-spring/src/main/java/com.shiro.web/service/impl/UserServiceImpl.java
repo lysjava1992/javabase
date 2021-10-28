@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User update(User user) {
         String sql = "update users  set password=?  where id=? ;";
-        jdbcTemplate.update(sql,user.getPassword(),user.getId());
+        jdbcTemplate.update(sql,processPassword(user),user.getId());
         return user;
     }
 

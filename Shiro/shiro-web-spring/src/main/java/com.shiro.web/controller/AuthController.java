@@ -22,7 +22,7 @@ public class AuthController {
     public Result login(String username,
                         String password,
                         boolean isRemember){
-        UsernamePasswordToken token=new UsernamePasswordToken(username,password);
+        UsernamePasswordToken token=new UsernamePasswordToken(username,password,isRemember);
         try {
             SecurityUtils.getSubject().login(token);
         }catch ( UnknownAccountException e){
