@@ -1,5 +1,6 @@
 package com.shiro.web.controller;
 
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,5 +22,12 @@ public class ViewController {
     @RequestMapping(path = {"","/ano"}, method = RequestMethod.GET)
     public String ano() {
         return "ano";
+    }
+
+
+    @RequiresRoles("admin")
+    @RequestMapping(path = {"","/session"}, method = RequestMethod.GET)
+    public String session() {
+        return "session";
     }
 }

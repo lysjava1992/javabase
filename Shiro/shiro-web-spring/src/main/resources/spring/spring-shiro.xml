@@ -2,8 +2,8 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
 
       <!-- 声明shiro过滤器 -->
       <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
@@ -12,25 +12,32 @@
             <property name="loginUrl" value="/login"/>
             <property name="successUrl" value="/index"/>
             <property name="unauthorizedUrl" value="/ano"/>
+            <property name="filters">
+                  <util:map>
+                        <entry key="kickout" value-ref="kickoutSessionControlFilter"/>
+                  </util:map>
+            </property>
             <!-- 自定义的过滤器链，从上向下执行，一般将`/**`放到最下面 -->
             <property name="filterChainDefinitions">
                   <value>
                         /login = anon
                         /auth/login=anon
                         /logout = logout
-                        /** = user
+                        /** = user,kickout
                   </value>
             </property>
       </bean>
 
-
-
+       <bean id="kickoutSessionControlFilter" class="com.shiro.web.component.KickoutSessionControlFilter">
+             <constructor-arg name="cacheManager" ref="cacheManager" />
+             <constructor-arg name="sessionManager" ref="sessionManager" />
+        </bean>
       <!-- 安全管理器  交互入口-->
       <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
             <property name="realm" ref="userRealm"/>
             <property name="cacheManager" ref="cacheManager"/>
             <property name="sessionManager" ref="sessionManager"/>
-           <property name="rememberMeManager" ref="rememberMeManager"/>
+            <property name="rememberMeManager" ref="rememberMeManager"/>
       </bean>
 
       <!-- Realm实现 -->
