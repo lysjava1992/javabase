@@ -18,11 +18,11 @@ public class Chapter3 {
     public static void main(String[] args) {
     ApplicationContext context=new ClassPathXmlApplicationContext("spring_chapter3.xml");
         DoService service1= (DoService) context.getBean("doService2");
-        System.out.println(service1.doWork1());
-        System.out.println(service1.doWork2());
+//        System.out.println(service1.doWork1());
+//        System.out.println(service1.doWork2());
         DoService service= (DoService) context.getBean("doService");
-        System.out.println(service.doWork1());
-        System.out.println(service.doWork2());
+//        System.out.println(service.doWork1());
+//        System.out.println(service.doWork2());
 
 
     }

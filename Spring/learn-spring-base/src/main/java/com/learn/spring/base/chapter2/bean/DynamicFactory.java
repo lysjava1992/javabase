@@ -11,6 +11,7 @@ package com.learn.spring.base.chapter2.bean;
  **/
 public class DynamicFactory {
     public Toy createToy(){
+        System.out.println("--------创建-----");
         Toy toy=new Toy();
         toy.setFactory("动态工厂建造");
         toy.setName("机器狗");

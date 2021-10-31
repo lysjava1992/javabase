@@ -35,7 +35,8 @@ public class StringToInteger2 implements ConditionalGenericConverter {
      */
     public Object convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
               if(sourceType.getType()==String.class&&targetType.getType()==Integer.class){
-                  return Integer.parseInt((String) source);
+                 // return Integer.parseInt((String) source);
+                  return new Integer(11111);
               }
         return null;
     }

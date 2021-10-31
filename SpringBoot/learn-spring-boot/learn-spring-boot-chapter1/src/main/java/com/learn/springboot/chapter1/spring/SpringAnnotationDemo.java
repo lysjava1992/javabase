@@ -1,6 +1,7 @@
 package com.learn.springboot.chapter1.spring;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Controller;
 
 /**
  * 天行健，君子以自强不息
@@ -12,6 +13,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  * @Date 2020/3/21 15:29
  * @Version 1.0
  **/
+
 public class SpringAnnotationDemo {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext context=new AnnotationConfigApplicationContext();

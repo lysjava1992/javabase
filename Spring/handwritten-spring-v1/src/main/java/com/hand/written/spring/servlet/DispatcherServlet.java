@@ -71,6 +71,7 @@ public class DispatcherServlet extends HttpServlet {
 
         //依赖注入
         doAutowired();
+
         DemoAction action= (DemoAction) beanMap.get("demoAction");
          action.query(null,null,"King");
         //SpringMVC  HandlerMapping url--method

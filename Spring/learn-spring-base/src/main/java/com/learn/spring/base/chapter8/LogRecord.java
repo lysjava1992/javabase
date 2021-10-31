@@ -19,13 +19,15 @@ import org.springframework.stereotype.Component;
 public class LogRecord {
     /**
      * 定义一个方法，用于声明切入点的表达式，
+     *  方法不会执行
      * 使用@Pointcut来声明切入点表达式
      * 后面的其他通知直接使用方法名来引用切入点表达式
      *     包下所有类方法 不包含子包 但不能包含接口
      * execution(* com.learn.spring.base.chapter8.service.*())
      */
     @Pointcut("execution(* com.learn.spring.base.chapter8.service.*Impl.*())")
-    public void  anyAll(){}
+    public void  anyAll(){ }
+
     @Pointcut("execution(* com.learn.spring.base.chapter8.service.*Impl.select())")
     public void  select(){}
     @Pointcut("execution(* com.learn.spring.base.chapter8.service.*Impl.remove())")

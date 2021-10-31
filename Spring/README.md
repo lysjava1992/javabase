@@ -28,17 +28,20 @@ https://docs.spring.io/spring-framework/docs/current/reference/html/index.html
 ## chapter10
   编程式事务管理
 ## chapter11 
- 查找方法注入，任意方法替换
+ 查找方法注入（单例bean中引用多例Bean），
+ 任意方法替换
  ApplicationContextAware接口
 ## chapter12
  自定义Bean作用域
+  Scope接口
 ## chapter13
-  声明周期控制
+  生命周期控制
 ## chapter14
+  XML
   Bean定义继承
 ## chapter15
   Spring 扩展实例化后 后置处理器【BeanPostProcessor】
-        扩展实例化前  元数据处理【BeanFactoryPostProcessor】
+         扩展实例化前  元数据处理【BeanFactoryPostProcessor】
 ## chapter16
   BeanFactory Spring容器
   FactoryBean Spring容器创建Bean的模式
@@ -49,7 +52,7 @@ https://docs.spring.io/spring-framework/docs/current/reference/html/index.html
 ## chapter18
    Spring事件
    自定义事件
-
+   事件监听
 ## chapter19
   Resource资源
  - UrlResource
@@ -62,6 +65,9 @@ https://docs.spring.io/spring-framework/docs/current/reference/html/index.html
    Validator验证接口
 ## chapter21
    Property属性编译器
+   在Spring配置文件里，我们往往通过字面值为Bean各种类型的属性提供设置值：
+    不管是double类型还是int类型，在配置文件中都对应字符串类型的字面值。
+    BeanWrapper填充Bean属性时如何将这个字面值转换为对应的double或int等内部类型呢
 ## chapter22
  String 类型转换器
  自定义校验
@@ -73,5 +79,4 @@ https://docs.spring.io/spring-framework/docs/current/reference/html/index.html
   MappingSqlQuery
 ## chapter26
    Spring+Hibernate XML
-## chapter25
-   AspectJ 框架
+

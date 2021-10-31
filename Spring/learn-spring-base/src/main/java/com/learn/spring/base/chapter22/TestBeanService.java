@@ -9,6 +9,7 @@ import org.springframework.validation.annotation.Validated;
 
 @Service
 public class TestBeanService {
+
     @Autowired
     private SmartValidator smartValidator;
     void testBean(  TestBean bean){

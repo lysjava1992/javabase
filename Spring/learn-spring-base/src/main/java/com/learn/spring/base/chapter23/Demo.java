@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Demo {
     private String defaultLocale;
-    public List<String> list;
+    public List<String> strings;
 
     public String getDefaultLocale() {
         return defaultLocale;

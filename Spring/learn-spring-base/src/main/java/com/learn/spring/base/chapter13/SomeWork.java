@@ -10,11 +10,16 @@ import javax.annotation.PreDestroy;
 public class SomeWork implements InitializingBean , Lifecycle, BeanNameAware {
     private String name;
     public SomeWork() {
+        //第一步
         System.out.println("实例化");
     }
     public void setName(String name) {
+        // 第二部
         System.out.println("注入");
         this.name = name;
+    }
+    public void setBeanName(String name) {
+        System.out.println("设置bean名称"+name);
     }
 
     public String getName() {
@@ -22,16 +27,18 @@ public class SomeWork implements InitializingBean , Lifecycle, BeanNameAware {
     }
 
 
-    public void  init(){
-        System.out.println("----初始化方法一----");
-    }
+
+
     @PostConstruct
+    public void  init(){
+        System.out.println("----@PostConstruct初始化方法init----");
+    }
+
     public void  init2(){
-        System.out.println("----初始化方法二----");
+        System.out.println("----XML配置初始化方法init2----");
     }
-    public void  init3(){
-        System.out.println("----初始化方法三----");
-    }
+
+
     @PreDestroy
     public void destroy(){
         System.out.println("销毁");
@@ -41,7 +48,9 @@ public class SomeWork implements InitializingBean , Lifecycle, BeanNameAware {
      * @throws Exception
      */
     public void afterPropertiesSet() throws Exception {
-           init();
+
+            System.out.println("----afterPropertiesSet----");
+
     }
 
     public void start() {
@@ -57,7 +66,5 @@ public class SomeWork implements InitializingBean , Lifecycle, BeanNameAware {
         return false;
     }
 
-    public void setBeanName(String name) {
-        System.out.println("=========="+name);
-    }
+
 }
