@@ -25,6 +25,7 @@ public class ActorMappingQuery extends MappingSqlQuery<Actor> {
      * @return
      * @throws SQLException
      */
+    @Override
     protected Actor mapRow(ResultSet resultSet, int rowNumber) throws SQLException {
         Actor actor=new Actor();
         actor.setId(resultSet.getLong("id"));

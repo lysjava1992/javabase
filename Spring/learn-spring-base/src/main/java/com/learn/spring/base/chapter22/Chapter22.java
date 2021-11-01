@@ -8,7 +8,8 @@ public class Chapter22 {
         ApplicationContext context=new ClassPathXmlApplicationContext("spring_chapter22.xml");
         TestBean bean= (TestBean) context.getBean("testBean");
         System.out.println(bean.getValue());
-       TestBeanService service=context.getBean(TestBeanService.class);
-       service.testBean(bean);
+
+        TestBeanService service=context.getBean(TestBeanService.class);
+        service.testBean(bean);
     }
 }

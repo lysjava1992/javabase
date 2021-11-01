@@ -7,7 +7,7 @@
      <bean id="baseService1" class="com.learn.spring.base.chapter5.service.BaseService1Impl"/>
 
     <!--注册通知的实现类-->
-    <bean id="before" class="com.learn.spring.base.chapter5.CustomBeforeAdvice"/>
+    <bean id="before11" class="com.learn.spring.base.chapter5.CustomBeforeAdvice"/>
 
     <!--注册代理监控对象的生产工厂
         即用户需要获取personProxy
@@ -16,7 +16,7 @@
         <property name="target" ref="baseService1" />
         <property name="interceptorNames">
             <array>
-                <value>before</value>
+                <value>before11</value>
             </array>
         </property>
     </bean>

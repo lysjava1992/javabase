@@ -5,8 +5,9 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:component-scan base-package="com.learn.spring.base.chapter13"/>
-    <bean name="someWork" class="com.learn.spring.base.chapter13.SomeWork" init-method="init3" destroy-method="destroy">
+    <bean name="someWork" class="com.learn.spring.base.chapter13.SomeWork" init-method="init2" destroy-method="destroy">
         <property name="name" value="defaultName"/>
     </bean>
-    <bean class="com.learn.spring.base.chapter13.TestSmartLifecycle"/>
+    <!--Spring生命周期-->
+    <!--<bean class="com.learn.spring.base.chapter13.TestSmartLifecycle"/>-->
 </beans>

@@ -13,17 +13,17 @@ public class LearnSpringBootChapter1Application {
      * 默认启动
      * @param args
      */
-	public static void main(String[] args) {
-	    SpringApplication.run(LearnSpringBootChapter1Application.class, args);
+//	public static void main(String[] args) {
+//	    SpringApplication.run(LearnSpringBootChapter1Application.class, args);
+//
+//	}
 
-	}
-
-//    public static void main(String[] args) {
-//        //server.port=0 向系统询问一个可用端口
-//        new SpringApplicationBuilder(LearnSpringBootChapter1Application.class)
-//                .properties("server.port=0")
-//                .run(args);
-//    }
+    public static void main(String[] args) {
+        //server.port=0 向系统询问一个可用端口
+        new SpringApplicationBuilder(LearnSpringBootChapter1Application.class)
+                .properties("server.port=0")
+                .run(args);
+    }
 
 //        public static void main(String[] args) {
 //

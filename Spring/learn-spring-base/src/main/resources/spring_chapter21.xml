@@ -4,21 +4,32 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
+    <!--bean声明
+       set注入
+       自定义属性编译器
+       会负责将  value="exoticType111"转换为ExoticType类型-->
      <bean id="sample" class="com.learn.spring.base.chapter21.DependsOnExoticType">
-          <property name="type" value="ExoticType"/>
+          <property name="type" value="exoticType111"/>
      </bean>
+
      <bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+         <!--1. xml注册-->
           <property name="customEditors">
                <map>
+                   <!--类型，负责转换的编译器-->
                     <entry key="com.learn.spring.base.chapter21.ExoticType" value="com.learn.spring.base.chapter21.ExoticTypeEditor"/>
                </map>
           </property>
+
+
+         <!--2. java代码注册-->
           <property name="propertyEditorRegistrars">
                <list>
                     <ref bean="customPropertyEditorRegistrar"/>
                </list>
           </property>
      </bean>
+
      <bean id="customPropertyEditorRegistrar"
            class="com.learn.spring.base.chapter21.CustomPropertyEditorRegistrar"/>
 </beans>

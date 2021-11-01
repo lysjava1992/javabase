@@ -9,7 +9,9 @@ import org.springframework.expression.spel.SpelParserConfiguration;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.SimpleEvaluationContext;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 public class SpELTest {
     private   ExpressionParser parser ;
@@ -17,6 +19,7 @@ public class SpELTest {
     public void init(){
         parser = new SpelExpressionParser();
     }
+
     @Test
     public void test(){
         Expression exp = parser.parseExpression("'Hello World'");
@@ -40,10 +43,15 @@ public class SpELTest {
     public void test3(){
         GregorianCalendar c = new GregorianCalendar();
         c.set(1856, 7, 9);
-      // The constructor arguments are name, birthday, and nationality.
+
+
         Inventor tesla = new Inventor("Nikola Tesla", c.getTime(), "Serbian");
+
+        //从bean中解析
         Expression exp = parser.parseExpression("name");
         String name = (String) exp.getValue(tesla);
+
+
        // name == "Nikola Tesla"
         exp = parser.parseExpression("name == 'Nikola Tesla'");
         boolean result = exp.getValue(tesla, Boolean.class);
@@ -71,11 +79,18 @@ public class SpELTest {
     public void test5(){
         SpelParserConfiguration config=new SpelParserConfiguration(true,true);
         ExpressionParser parser=new SpelExpressionParser(config);
-        Expression expression=parser.parseExpression("list[3]");
+
+        Expression expression=parser.parseExpression("strings[3]");
         Demo demo=new Demo();
+        List<String> list=new ArrayList<String>();
+        list.add("0");
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        demo.strings=list;
         Object o=expression.getValue(demo);
-        System.out.println(0);
+
+        System.out.println(o);
     }
-    @Test
-    public void test6(){}
+
 }

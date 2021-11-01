@@ -8,6 +8,8 @@
          <property name="name" value="testBean"/>
         <property name="age" value="1"/>
     </bean>
+
+
     <bean id="derivedTestBase" class="com.learn.spring.base.chapter14.DerivedTestBean"
      parent="testBean">
         <property name="age" value="25"/>

@@ -11,6 +11,7 @@
      <bean id="testBean" class="com.learn.spring.base.chapter22.TestBean">
           <property name="value" value="102"/>
      </bean>
+
      <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
           <property name="converters">
                <set>

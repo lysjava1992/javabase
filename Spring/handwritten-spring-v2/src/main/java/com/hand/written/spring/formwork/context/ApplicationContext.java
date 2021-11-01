@@ -53,6 +53,7 @@ public class ApplicationContext implements BeanFactory {
 
         //定位
         this.reader = new BeanDefinitionReader(configLocation);
+
         //加载
         List<String> beanDefinitions = reader.loadBeadDefinitions();
         //注册
