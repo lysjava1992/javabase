@@ -23,15 +23,24 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(authenticationProvider());
     }
 
+    /**
+     *  配置自定义 UserDetailsService
+     *
+     * @return
+     */
     private AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider=new DaoAuthenticationProvider();
         provider.setPasswordEncoder(passwordEncoder());
         provider.setHideUserNotFoundExceptions(false);
         provider.setUserDetailsService(customUserDetailsService);
-
         return provider;
     }
 
+    /**
+     *  SpringSecurity 默认不支持明文
+     *  必须配置密码编码器
+     * @return
+     */
     PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
@@ -46,12 +55,13 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
+                 // 表单登录
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/auth/login")
                 .successForwardUrl("/index")
-
                 .permitAll()
+
                 .and()
                 .httpBasic()
                 .and()
