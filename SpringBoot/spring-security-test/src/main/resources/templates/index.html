@@ -2,21 +2,192 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Bootstrap 实例 - 响应式实用工具</title>
+    <title>用户</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+
+
+    <script type="text/javascript" charset="utf8" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="http://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </head>
 <body>
-<div class="row"></div>
-<div class="row">
-    <div class="col-md-5"></div>
-    <div class="col-md-2">
-        首页
+
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">导航</a>
+            <a class="navbar-brand" href="/logout">退出</a>
+        </div>
+        <div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/index">用户列表</a></li>
+                <li><a href="/session">会话管理</a></li>
+            </ul>
+        </div>
     </div>
-    <div class="col-md-5"></div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-6 col-sm-3">
+        </div>
+        <div class="col-xs-6 col-sm-6">
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">
+                    用户
+                    <button class="btn btn-primary " data-toggle="modal" data-target="#myModal">
+                        新增
+                    </button>
+                </div>
+                <div class="panel-body">
+                </div>
+                <table id="table_id_example" class="display" cellspacing="0" width="100%" >
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>用户名</th>
+                        <th>角色</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 
 
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    新增用户
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal" role="form">
+                    <p id="err"></p>
+                    <div class="form-group">
+                        <label for="username" class="col-sm-2 control-label">用户名</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="username" name="username"
+                                   placeholder="请输入用户名">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="col-sm-2 control-label">密码</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="password" name="password"
+                                   placeholder="请输入密码">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <label for="role">角色 </label>
+                            <select class="form-control" name="role" id="role">
+                                <option value="admin">管理员</option>
+                                <option value="user">用户</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+                <button type="button" id="add" class="btn btn-primary">
+                    新增
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<script>
+    var table;
+    var  columns= [
+        { "data": 'id' },
+        { "data": 'username' },
+        { "data": 'role' },
+        { "data": 'id' },
+    ]
+    $(document).ready( function () {
+     table =    $('#table_id_example').DataTable({
+            ajax: {
+                url: "/user/find",
+                type: "GET",
+                "dataSrc": function (result) {
+                     console.log(result);
+                    return result;
+                },
+            },
+            "oLanguage": {//下面是一些汉语翻译
+                "sSearch": "搜索",
+                "sLengthMenu": "每页显示 _MENU_ 条记录",
+                "sZeroRecords": "没有检索到数据",
+                "sInfo": "显示 _START_ 至 _END_ 条 &nbsp;&nbsp;共 _TOTAL_ 条",
+                "sInfoFiltered": "(筛选自 _MAX_ 条数据)",
+                "sInfoEmtpy": "没有数据",
+                "sProcessing": "正在加载数据...",
+                "oPaginate":
+                    {
+                        "sFirst": "首页",
+                        "sPrevious": "前一页",
+                        "sNext": "后一页",
+                        "sLast": "末页"
+                    }
+            },
+
+            "columnDefs": [
+                {
+                    "render": function ( data, type, row ) {
+                        return `<button type="button" class="btn btn-danger">删除</button>`;
+                    },
+                    "data" : null,
+                    "targets": 3  //第几列 0开始
+                },
+            ],
+            "columns": columns
+        });
+    } );
+    $("#add").click(function(){
+        $.post(
+            "/user",
+            {username:$("#username").val(),
+             password:$("#password").val(),
+                role:$("#role").val()
+              },
+            function(result){
+                $('#myModal').modal('hide');
+                $('#table_id_example').DataTable().ajax.reload();
+        });
+    });
+    $('#table_id_example tbody').on( 'click', 'button', function () {
+        var data = table.row( $(this).parents('tr') ).data();
+        $.ajax({
+            url: "/user/"+data.id,
+            type:"DELETE",
+            data:$("#empModal form").serialize(),
+            success:function (result) {
+                    if(result){
+                        $('#table_id_example').DataTable().ajax.reload()
+                    }else {
+                        alert(result.msg)
+                    }
+            }
+        });
+    } );
+</script>
 </body>
 </html>

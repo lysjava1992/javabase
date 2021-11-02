@@ -22,27 +22,27 @@ import org.springframework.stereotype.Component;
 public class MoblieSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
 
-   @Autowired
-   private UserDetailsService userDetailsService;
+    @Autowired
+    private UserDetailsService userDetailsService;
     @Autowired
     SecuritySuccessHandler securitySuccessHandler;
     @Autowired
     SecurityFailedHandler securityFailedHandler;
 
-@Override
-public void configure(HttpSecurity http) throws Exception {
+    @Override
+    public void configure(HttpSecurity http) throws Exception {
 
         MobileAuthenticationFilter mobileAuthenticationFilter = new MobileAuthenticationFilter();
-    mobileAuthenticationFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
-    mobileAuthenticationFilter.setAuthenticationSuccessHandler(securitySuccessHandler);
-    mobileAuthenticationFilter.setAuthenticationFailureHandler(securityFailedHandler);
+        mobileAuthenticationFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
+        mobileAuthenticationFilter.setAuthenticationSuccessHandler(securitySuccessHandler);
+        mobileAuthenticationFilter.setAuthenticationFailureHandler(securityFailedHandler);
 
         // 获取验证码提供者
         MobileAuthenticationProvider mobileAuthenticationProvider = new MobileAuthenticationProvider();
         mobileAuthenticationProvider.setUserDetailsService(userDetailsService);
 
         http.authenticationProvider(mobileAuthenticationProvider)
-        .addFilterAfter(mobileAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterAfter(mobileAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-        }
+    }
 }
