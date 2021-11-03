@@ -19,4 +19,7 @@ spring:
       ddl-auto: none #禁止使用SpringJpa自带的生成表
   thymeleaf:
     cache: false
-
+server:
+  servlet:
+    session:
+      timeout: 60m

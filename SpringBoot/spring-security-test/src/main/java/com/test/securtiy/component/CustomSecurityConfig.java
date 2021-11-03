@@ -25,6 +25,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy;
+import org.springframework.security.web.session.ConcurrentSessionFilter;
+import org.springframework.security.web.session.SessionInformationExpiredStrategy;
+import org.springframework.security.web.session.SimpleRedirectSessionInformationExpiredStrategy;
 
 @Configuration
 public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -33,6 +36,7 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
     CustomUserDetailsService customUserDetailsService;
     @Autowired
     UserService userService;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
@@ -43,7 +47,7 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     private AuthenticationProvider ajaxLoginAuthenticationProvider() {
-        AjaxLoginAuthenticationProvider provider=new AjaxLoginAuthenticationProvider();
+        AjaxLoginAuthenticationProvider provider = new AjaxLoginAuthenticationProvider();
         provider.setUserDetailsService(customUserDetailsService);
         provider.setPasswordEncoder(passwordEncoder());
         provider.setSessionRegistry(sessionRegistry());
@@ -51,12 +55,12 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     *  配置自定义 UserDetailsService
+     * 配置自定义 UserDetailsService
      *
      * @return
      */
     private AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider provider=new DaoAuthenticationProvider();
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(passwordEncoder());
         provider.setHideUserNotFoundExceptions(false);
         provider.setUserDetailsService(customUserDetailsService);
@@ -64,14 +68,16 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     private AuthenticationProvider smsLoginAuthenticationProvider() {
-        SmsLoginAuthenticationProvider provider=new SmsLoginAuthenticationProvider();
+        SmsLoginAuthenticationProvider provider = new SmsLoginAuthenticationProvider();
         provider.setUserDetailsService(userService);
         return provider;
     }
+
     @Bean
-    public SessionRegistry sessionRegistry(){
+    public SessionRegistry sessionRegistry() {
         return new SessionRegistryImpl();
     }
+
     @Bean
     public AjaxLoginAuthenticationProcessingFilter ajaxLoginAuthenticationProcessingFilter() throws Exception {
         AjaxLoginAuthenticationProcessingFilter filter = new AjaxLoginAuthenticationProcessingFilter(sessionRegistry());
@@ -83,29 +89,35 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
         return filter;
     }
 
-    public ConcurrentSessionControlAuthenticationStrategy sessionControlAuthenticationStrategy(){
-        ConcurrentSessionControlAuthenticationStrategy strategy=new ConcurrentSessionControlAuthenticationStrategy(sessionRegistry());
-        strategy.setMaximumSessions(1);
+    public ConcurrentSessionControlAuthenticationStrategy sessionControlAuthenticationStrategy() {
+        ConcurrentSessionControlAuthenticationStrategy strategy = new ConcurrentSessionControlAuthenticationStrategy(sessionRegistry());
+        strategy.setMaximumSessions(3);
+        strategy.setExceptionIfMaximumExceeded(true);
         return strategy;
     }
+
     public SmsLoginAuthenticationProcessingFilter smsLoginAuthenticationProcessingFilter() throws Exception {
-        SmsLoginAuthenticationProcessingFilter filter=new SmsLoginAuthenticationProcessingFilter();
+        SmsLoginAuthenticationProcessingFilter filter = new SmsLoginAuthenticationProcessingFilter();
         filter.setAuthenticationManager(authenticationManager());
         filter.setAuthenticationFailureHandler(new SmsAuthenticationFailureHandler());
         return filter;
     }
-
+    private SessionInformationExpiredStrategy sessionInformationExpiredStrategy() {
+        return new SimpleRedirectSessionInformationExpiredStrategy("/err");
+    }
     /**
-     *  SpringSecurity 默认不支持明文
-     *  必须配置密码编码器
+     * SpringSecurity 默认不支持明文
+     * 必须配置密码编码器
+     *
      * @return
      */
-    PasswordEncoder passwordEncoder(){
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().mvcMatchers("/static/**","/resources/**");
+        web.ignoring().mvcMatchers("/static/**", "/resources/**");
     }
 
     @Override
@@ -114,13 +126,13 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
         // 目标过滤器 UsernamePasswordAuthenticationFilter 用于配置顺序
         // 即添加的过滤器在UsernamePasswordAuthenticationFilter之前生效
         http.addFilterBefore(ajaxLoginAuthenticationProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
-        http.addFilterBefore(smsLoginAuthenticationProcessingFilter(),UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(smsLoginAuthenticationProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
         http.authorizeRequests()
-                .antMatchers("/h2-console/**","/ajax/login","/sms/code").permitAll()
+                .antMatchers("/h2-console/**", "/ajax/login", "/sms/code").permitAll()
                 .anyRequest().authenticated()
                 .and()
 
-                 // 表单登录
+                // 表单登录
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/auth/login")
@@ -145,10 +157,12 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .maximumSessions(3)
 //                .sessionRegistry(sessionRegistry());
 
-    //    session并发控制过滤器
-      http.sessionManagement().maximumSessions(1)
-                              .maxSessionsPreventsLogin(false)
-                              .expiredUrl("/err")
-                              .sessionRegistry(sessionRegistry());
+        http.addFilterAt(new ConcurrentSessionFilter(sessionRegistry(),sessionInformationExpiredStrategy()),ConcurrentSessionFilter.class);
+        //    session并发控制过滤器
+        http.sessionManagement()
+                .maximumSessions(1)
+                .maxSessionsPreventsLogin(false)
+                .expiredUrl("/err")
+                .sessionRegistry(sessionRegistry());
     }
 }

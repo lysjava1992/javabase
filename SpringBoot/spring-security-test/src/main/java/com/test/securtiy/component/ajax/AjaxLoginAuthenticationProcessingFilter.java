@@ -54,7 +54,9 @@ public class AjaxLoginAuthenticationProcessingFilter extends AbstractAuthenticat
         AjaxLoginAuthenticationToken token=new AjaxLoginAuthenticationToken(username,password);
         setDetails(request, token);
         Authentication authentication= this.getAuthenticationManager().authenticate(token);
+
         sessionRegistry.registerNewSession(request.getSession().getId(),authentication.getPrincipal());
+
         return authentication;
     }
     @Nullable
