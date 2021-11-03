@@ -18,6 +18,9 @@ public class ViewController {
     }
 
 
-
+    @GetMapping("err")
+    public String err(){
+        return "err";
+    }
 
 }

@@ -32,4 +32,9 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
         return true;
     }
+
+    @Override
+    public CustomUser findByPhone(String phone) {
+        return userRepository.findByPhone(phone);
+    }
 }

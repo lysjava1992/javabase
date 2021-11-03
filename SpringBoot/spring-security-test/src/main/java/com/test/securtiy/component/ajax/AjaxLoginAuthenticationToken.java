@@ -9,7 +9,6 @@ import java.util.Collection;
 
 public class AjaxLoginAuthenticationToken extends AbstractAuthenticationToken {
     private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
-
     /**
      * 认证主体
      *  用户名

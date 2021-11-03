@@ -9,4 +9,5 @@ public interface UserService {
     CustomUser findById(Integer id);
     List<CustomUser> findAll();
     boolean delete(Integer id);
+    CustomUser findByPhone(String phone);
 }

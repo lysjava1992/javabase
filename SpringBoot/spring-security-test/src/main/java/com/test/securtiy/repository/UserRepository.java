@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<CustomUser,Integer> {
     CustomUser findByUsername(String username);
+    CustomUser findByPhone(String phone);
 }

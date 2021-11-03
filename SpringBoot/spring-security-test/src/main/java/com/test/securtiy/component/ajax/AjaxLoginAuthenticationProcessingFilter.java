@@ -5,6 +5,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -21,8 +22,12 @@ public class AjaxLoginAuthenticationProcessingFilter extends AbstractAuthenticat
     private static final AntPathRequestMatcher DEFAULT_ANT_PATH_REQUEST_MATCHER = new AntPathRequestMatcher("/ajax/login",
             "POST");
     private boolean postOnly = true;
-    public AjaxLoginAuthenticationProcessingFilter() {
+
+    private SessionRegistry sessionRegistry;
+
+    public AjaxLoginAuthenticationProcessingFilter(SessionRegistry sessionRegistry) {
         super(DEFAULT_ANT_PATH_REQUEST_MATCHER);
+        this.sessionRegistry=sessionRegistry;
     }
 
     @Override
@@ -48,7 +53,9 @@ public class AjaxLoginAuthenticationProcessingFilter extends AbstractAuthenticat
         }
         AjaxLoginAuthenticationToken token=new AjaxLoginAuthenticationToken(username,password);
         setDetails(request, token);
-        return this.getAuthenticationManager().authenticate(token);
+        Authentication authentication= this.getAuthenticationManager().authenticate(token);
+        sessionRegistry.registerNewSession(request.getSession().getId(),authentication.getPrincipal());
+        return authentication;
     }
     @Nullable
     protected String obtainUsername(HttpServletRequest request) {

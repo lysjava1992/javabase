@@ -6,15 +6,26 @@ import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 
 public class AjaxLoginAuthenticationProvider implements AuthenticationProvider {
     private UserDetailsService userDetailService;
     private PasswordEncoder passwordEncoder;
+    private SessionRegistry sessionRegistry;
+
+
+    public void setSessionRegistry(SessionRegistry sessionRegistry) {
+        this.sessionRegistry = sessionRegistry;
+    }
+
     public void setUserDetailsService(UserDetailsService userDetailsService) {
         this.userDetailService = userDetailsService;
     }
@@ -44,9 +55,11 @@ public class AjaxLoginAuthenticationProvider implements AuthenticationProvider {
         }else if(!passwordEncoder.matches(password,userDetails.getPassword())){
             throw new BadCredentialsException("密码错误");
         }
-
+        AjaxLoginAuthenticationToken result = new AjaxLoginAuthenticationToken(userDetails,
+                authentication.getCredentials(), userDetails.getAuthorities());
+        result.setDetails(authentication.getDetails());
         // 构建返回的用户登录成功的token
-        return new AjaxLoginAuthenticationToken(userName, password, userDetails.getAuthorities());
+        return result;
     }
 
     @Override

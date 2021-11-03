@@ -20,6 +20,7 @@ public class CustomUser implements UserDetails  {
     private String username;
     private String password;
     private String role;
+    private String phone;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

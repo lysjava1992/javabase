@@ -8,7 +8,6 @@
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="row"></div>
 <div class="row">
     <div class="col-md-5"></div>
     <div class="col-md-2">
@@ -33,6 +32,24 @@
     </div>
     <div class="col-md-5"></div>
 </div>
+<div class="row">
+    <div class="col-md-5"></div>
+    <div class="col-md-2">
+        <form action="/sms/login" method="post">
+            <p style="color: crimson" th:text="${session.err}" th:if="${not #strings.isEmpty(session.err)}"></p>
+            <div class="form-group">
+                <label for="phone">手机</label>
+                <input type="text" class="form-control" id="phone" name="phone" placeholder="phone">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="code" name="code" placeholder="code">
+                <label><button id="code_btn" type="button" class="btn btn-primary">获取验证码</button></label>
+            </div>
+            <button type="submit" class="btn btn-primary">登录</button>
+        </form>
+    </div>
+    <div class="col-md-5"></div>
+</div>
 <script>
     $("#login").click(function(){
         $.post(
@@ -42,6 +59,15 @@
             },
             function(result){
              console.log(result)
+            });
+    });
+    $("#code_btn").click(function(){
+        $.post(
+            "/sms/code",
+            {phone:$("#phone").val()
+            },
+            function(result){
+                console.log(result);
             });
     });
 </script>
