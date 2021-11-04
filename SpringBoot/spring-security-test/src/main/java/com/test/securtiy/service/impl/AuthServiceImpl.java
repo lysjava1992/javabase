@@ -27,15 +27,15 @@ public class AuthServiceImpl implements AuthService {
         }
         SmsCode smsCode= smsCodeMemory.put(phone);
         try {
-            Client client = createClient("LTAI4GHv83NhJdHDu8z69z7L", "mcvlww7aDNe50svCHO2yv4bNewgDOV");
+          //  Client client = createClient("", "");
             JSONObject jsonObject=new JSONObject();
             jsonObject.put("code",smsCode.getCode());
-            SendSmsRequest sendSmsRequest = new SendSmsRequest();
-            sendSmsRequest.setTemplateCode("SMS_162737300");
-            sendSmsRequest.setSignName("TOP01");
-            sendSmsRequest.setTemplateParam(jsonObject.toJSONString());
-            sendSmsRequest.setPhoneNumbers(user.getPhone());
-            SendSmsResponse smsResponse= client.sendSms(sendSmsRequest);
+//            SendSmsRequest sendSmsRequest = new SendSmsRequest();
+//            sendSmsRequest.setTemplateCode("SMS_162737300");
+//            sendSmsRequest.setSignName("TOP01");
+//            sendSmsRequest.setTemplateParam(jsonObject.toJSONString());
+//            sendSmsRequest.setPhoneNumbers(user.getPhone());
+//            SendSmsResponse smsResponse= client.sendSms(sendSmsRequest);
         }catch (Exception e){
             return new Result(false,"短信发送失败");
         }

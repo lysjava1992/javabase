@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>用户</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="http://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">导航</a>
+            <a class="navbar-brand" href="/logout">退出</a>
+        </div>
+        <div>
+            <ul class="nav navbar-nav">
+                <li ><a href="/index">用户列表</a></li>
+                <li class="active"><a href="/session">会话管理</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+
+        <div class="col-xs-6 col-sm-10">
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">
+                    在线管理
+                </div>
+                <div class="panel-body">
+                </div>
+                <table id="table_id_example" class="display" cellspacing="0" width="100%" >
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>用户名</th>
+                        <th>角色</th>
+                        <th>电话</th>
+                        <th>最后活跃时间</th>
+                        <th>是否过期</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var table;
+    var  columns= [
+        { "data": 'sessionId' },
+        { "data": 'principal.username' },
+        { "data": 'principal.role' },
+        { "data": 'principal.phone' },
+        { "data": 'lastRequest' },
+        { "data": 'expired' },
+        { "data": 'sessionId' },
+    ]
+    $(document).ready( function () {
+     table =    $('#table_id_example').DataTable({
+            ajax: {
+                url: "/session/all",
+                type: "GET",
+                "dataSrc": function (result) {
+                     console.log(result);
+                    return result;
+                },
+            },
+            "oLanguage": {//下面是一些汉语翻译
+                "sSearch": "搜索",
+                "sLengthMenu": "每页显示 _MENU_ 条记录",
+                "sZeroRecords": "没有检索到数据",
+                "sInfo": "显示 _START_ 至 _END_ 条 &nbsp;&nbsp;共 _TOTAL_ 条",
+                "sInfoFiltered": "(筛选自 _MAX_ 条数据)",
+                "sInfoEmtpy": "没有数据",
+                "sProcessing": "正在加载数据...",
+                "oPaginate":
+                    {
+                        "sFirst": "首页",
+                        "sPrevious": "前一页",
+                        "sNext": "后一页",
+                        "sLast": "末页"
+                    }
+            },
+
+            "columnDefs": [
+                {
+                    "render": function ( data, type, row ) {
+                        if(data){
+                            return '过期';
+                        }
+                        return '正常';
+                    },
+                    "data" : null,
+                    "targets": 5 //第几列 0开始
+                },
+                {
+                    "render": function ( data, type, row ) {
+                        return `<button type="button" class="btn btn-danger">删除</button>`;
+                    },
+                    "data" : null,
+                    "targets": 6 //第几列 0开始
+                },
+            ],
+            "columns": columns
+        });
+    } );
+    $('#table_id_example tbody').on( 'click', 'button', function () {
+        var data = table.row( $(this).parents('tr') ).data();
+        $.ajax({
+            url: "/session/del/"+data.sessionId,
+            type:"GET",
+            data:$("#empModal form").serialize(),
+            success:function (result) {
+                    if(result){
+                        $('#table_id_example').DataTable().ajax.reload()
+                    }else {
+                        alert(result.msg)
+                    }
+            }
+        });
+    } );
+</script>
+</body>
+</html>

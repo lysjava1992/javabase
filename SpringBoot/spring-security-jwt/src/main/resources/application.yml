@@ -1,0 +1,31 @@
+
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:test
+    username: sa
+    password:
+  sql:
+    init:
+      schema-locations: classpath:db/H2-Init.sql
+      # 只初始化内存数据库
+      mode: embedded
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none #禁止使用SpringJpa自带的生成表
+  thymeleaf:
+    cache: false
+server:
+  servlet:
+    session:
+      timeout: 60m
+  port: 8081
+jwt:
+  secret: secret
+  expiration: 7200000
+  token: Authorization

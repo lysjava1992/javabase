@@ -22,5 +22,8 @@ public class ViewController {
     public String err(){
         return "err";
     }
-
+    @GetMapping("/session")
+    public String session(){
+        return "session";
+    }
 }

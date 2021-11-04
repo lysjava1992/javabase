@@ -1,11 +1,13 @@
 package com.test.securtiy.component.sms;
 
+import com.test.securtiy.component.ajax.AjaxLoginAuthenticationToken;
 import org.springframework.lang.Nullable;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
@@ -31,9 +33,10 @@ public class SmsLoginAuthenticationProcessingFilter extends AbstractAuthenticati
     private static final AntPathRequestMatcher DEFAULT_ANT_PATH_REQUEST_MATCHER = new AntPathRequestMatcher(SMS_LOGIN_URL,
             "POST");
     private boolean postOnly = true;
-
-    public SmsLoginAuthenticationProcessingFilter() {
+    private SessionRegistry sessionRegistry;
+    public SmsLoginAuthenticationProcessingFilter(SessionRegistry sessionRegistry) {
         super(DEFAULT_ANT_PATH_REQUEST_MATCHER);
+        this.sessionRegistry=sessionRegistry;
     }
 
 
@@ -50,10 +53,11 @@ public class SmsLoginAuthenticationProcessingFilter extends AbstractAuthenticati
         String code = obtainCode(request);
         code = (code != null) ? code : "";
 
-        SmsLoginAuthenticationToken authRequest = new  SmsLoginAuthenticationToken(phone, code);
-
-        setDetails(request, authRequest);
-        return this.getAuthenticationManager().authenticate(authRequest);
+       SmsLoginAuthenticationToken token=new SmsLoginAuthenticationToken(phone,code);
+        setDetails(request, token);
+        Authentication authentication= this.getAuthenticationManager().authenticate(token);
+        sessionRegistry.registerNewSession(request.getSession().getId(),authentication.getPrincipal());
+        return authentication;
     }
     @Nullable
     protected String obtainPhone(HttpServletRequest request) {

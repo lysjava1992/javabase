@@ -1,5 +1,6 @@
 package com.test.securtiy.component.sms;
 
+import com.test.securtiy.component.ajax.AjaxLoginAuthenticationToken;
 import com.test.securtiy.model.CustomUser;
 import com.test.securtiy.service.UserService;
 import org.springframework.security.authentication.*;
@@ -48,8 +49,10 @@ public class SmsLoginAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException("验证码错误");
         }
         smsCodeMemory.remove(phone);
-
-        return new SmsLoginAuthenticationToken(phone,code,user.getAuthorities());
+        SmsLoginAuthenticationToken result = new SmsLoginAuthenticationToken(user,
+                authentication.getCredentials(), user.getAuthorities());
+        result.setDetails(authentication.getDetails());
+        return  result;
     }
 
     /**

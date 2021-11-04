@@ -11,16 +11,16 @@ import java.util.Collection;
  */
 public class SmsLoginAuthenticationToken extends AbstractAuthenticationToken {
 
-     private String phone;
-     private String code;
+     private Object phone;
+     private Object code;
 
-    public SmsLoginAuthenticationToken(String phone,String code) {
+    public SmsLoginAuthenticationToken(Object phone,Object code) {
         super(null);
         this.phone=phone;
         this.code=code;
         super.setAuthenticated(false);
     }
-    public SmsLoginAuthenticationToken(String phone,String code,Collection<? extends GrantedAuthority> authorities) {
+    public SmsLoginAuthenticationToken(Object phone,Object code,Collection<? extends GrantedAuthority> authorities) {
         super(authorities);
         this.phone=phone;
         this.code=code;
@@ -28,12 +28,12 @@ public class SmsLoginAuthenticationToken extends AbstractAuthenticationToken {
     }
 
     @Override
-    public String getCredentials() {
+    public Object getCredentials() {
         return code;
     }
 
     @Override
-    public String getPrincipal() {
+    public Object  getPrincipal() {
         return phone;
     }
 }

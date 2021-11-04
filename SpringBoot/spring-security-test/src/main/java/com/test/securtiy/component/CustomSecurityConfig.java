@@ -1,6 +1,5 @@
 package com.test.securtiy.component;
 
-import com.sun.org.apache.regexp.internal.RE;
 import com.test.securtiy.component.ajax.AjaxLoginAuthenticationFailureHandler;
 import com.test.securtiy.component.ajax.AjaxLoginAuthenticationProcessingFilter;
 import com.test.securtiy.component.ajax.AjaxLoginAuthenticationProvider;
@@ -16,8 +15,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
@@ -28,7 +29,7 @@ import org.springframework.security.web.authentication.session.ConcurrentSession
 import org.springframework.security.web.session.ConcurrentSessionFilter;
 import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 import org.springframework.security.web.session.SimpleRedirectSessionInformationExpiredStrategy;
-
+@EnableGlobalMethodSecurity(prePostEnabled = true,securedEnabled=true,jsr250Enabled=true)
 @Configuration
 public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -39,11 +40,9 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
         auth.authenticationProvider(authenticationProvider());
         auth.authenticationProvider(ajaxLoginAuthenticationProvider());
         auth.authenticationProvider(smsLoginAuthenticationProvider());
-
     }
 
     private AuthenticationProvider ajaxLoginAuthenticationProvider() {
@@ -91,14 +90,15 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
 
     public ConcurrentSessionControlAuthenticationStrategy sessionControlAuthenticationStrategy() {
         ConcurrentSessionControlAuthenticationStrategy strategy = new ConcurrentSessionControlAuthenticationStrategy(sessionRegistry());
-        strategy.setMaximumSessions(3);
+        strategy.setMaximumSessions(5);
         strategy.setExceptionIfMaximumExceeded(true);
         return strategy;
     }
 
     public SmsLoginAuthenticationProcessingFilter smsLoginAuthenticationProcessingFilter() throws Exception {
-        SmsLoginAuthenticationProcessingFilter filter = new SmsLoginAuthenticationProcessingFilter();
+        SmsLoginAuthenticationProcessingFilter filter = new SmsLoginAuthenticationProcessingFilter(sessionRegistry());
         filter.setAuthenticationManager(authenticationManager());
+        filter.setSessionAuthenticationStrategy(sessionControlAuthenticationStrategy());
         filter.setAuthenticationFailureHandler(new SmsAuthenticationFailureHandler());
         return filter;
     }
@@ -157,10 +157,10 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .maximumSessions(3)
 //                .sessionRegistry(sessionRegistry());
 
-        http.addFilterAt(new ConcurrentSessionFilter(sessionRegistry(),sessionInformationExpiredStrategy()),ConcurrentSessionFilter.class);
+        http.addFilterAt(new ConcurrentSessionFilter(sessionRegistry(),sessionInformationExpiredStrategy()),UsernamePasswordAuthenticationFilter.class);
         //    session并发控制过滤器
         http.sessionManagement()
-                .maximumSessions(1)
+                .maximumSessions(5)
                 .maxSessionsPreventsLogin(false)
                 .expiredUrl("/err")
                 .sessionRegistry(sessionRegistry());

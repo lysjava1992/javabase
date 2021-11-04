@@ -1,6 +1,7 @@
 package com.test.securtiy.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
@@ -25,7 +26,7 @@ public class SessionController {
      * 在线人数 是以username区分的，即一个账号多出登录只算一个
      *返回的是
      */
-    @GetMapping
+    @GetMapping("online")
     public Object getOnlinUser(){
         return sessionRegistry.getAllPrincipals();
     }
@@ -34,6 +35,7 @@ public class SessionController {
      *
      *获取所有在线session
      **/
+    @PreAuthorize("hasAuthority('admin')")
     @GetMapping("all")
     public List<SessionInformation> getOnlinSession(){
 
@@ -46,9 +48,9 @@ public class SessionController {
      *
      *踢出
      **/
+    @PreAuthorize("hasAuthority('admin')")
     @GetMapping("del/{sessionId}")
     public String getOnlinSession(@PathVariable String sessionId){
-
         List<SessionInformation> sessionsInfo;
         sessionsInfo = sessionRegistry.getAllSessions(  SecurityContextHolder.getContext().getAuthentication().getPrincipal(), true);
         for (SessionInformation sessionInformation:sessionsInfo){
