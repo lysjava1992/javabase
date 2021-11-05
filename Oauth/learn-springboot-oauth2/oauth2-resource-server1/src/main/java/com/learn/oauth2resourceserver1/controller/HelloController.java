@@ -18,22 +18,24 @@ import java.util.UUID;
 @RestController
 public class HelloController {
 
-        @GetMapping("/admin/hello")
-        public String admin(){
-            return "hello-admin"+ UUID.randomUUID().toString();
+    @GetMapping("/admin/hello")
+    public String admin() {
+        return "hello-admin" + UUID.randomUUID().toString();
 
-        }
-        @GetMapping("/user/hello")
-        public String user(){
-            return "hello-user:[12025630]";
+    }
 
-        }
+    @GetMapping("/user/hello")
+    public String user() {
+        return "hello-user:[12025630]";
 
-        @GetMapping("/hello")
-        public String hello() {
-            return "Hello !!!";
+    }
 
-        }
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello !!!";
+
+    }
+
     @GetMapping("/scopes/test")
     public String test() {
         return "Hello scopes";
