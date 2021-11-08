@@ -9,6 +9,9 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 @EnableResourceServer
 @Configuration
@@ -20,24 +23,25 @@ public class Oauth2ResourcesServer extends ResourceServerConfigurerAdapter {
      *  资源服务器需要
      * @return
      */
-    @Primary
-    @Bean
-    public RemoteTokenServices tokenServices() {
-        final RemoteTokenServices tokenService = new RemoteTokenServices();
-        //配置认证服务器地址
-        // 资源管理器需要通过授权管理服务器来验证toke
-        // 此时对授权管理服务器来说资源管理器也是一个客户端
-        tokenService.setCheckTokenEndpointUrl("http://localhost:8080/oauth/check_token");
-        tokenService.setClientId("cid");
-        tokenService.setClientSecret("123456");
-        return tokenService;
-    }
+//    @Primary
+//    @Bean
+//    public RemoteTokenServices tokenServices() {
+//        final RemoteTokenServices tokenService = new RemoteTokenServices();
+//        //配置认证服务器地址
+//        // 资源管理器需要通过授权管理服务器来验证toke
+//        // 此时对授权管理服务器来说资源管理器也是一个客户端
+//        tokenService.setCheckTokenEndpointUrl("http://localhost:8080/oauth/check_token");
+//        tokenService.setClientId("cid");
+//        tokenService.setClientSecret("123456");
+//        return tokenService;
+//    }
 
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
         //配置资源ID
-        resources.resourceId("rid");
+        resources.resourceId("rid")
+                 .tokenStore(jwtTokenStore());
     }
 
     //配置资源权限
@@ -46,4 +50,17 @@ public class Oauth2ResourcesServer extends ResourceServerConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         super.configure(http);
     }
+    @Bean
+    public TokenStore jwtTokenStore() {
+        // 最基本的InMemoryTokenStore生成token
+        return new JwtTokenStore(jwtAccessTokenConverter());
+    }
+
+    @Bean
+    JwtAccessTokenConverter jwtAccessTokenConverter(){
+        JwtAccessTokenConverter converter=new JwtAccessTokenConverter();
+        converter.setSigningKey("test-secret");
+        return converter;
+    }
+
 }

@@ -44,15 +44,17 @@ public class CustomOauth2Server extends AuthorizationServerConfigurerAdapter {
         return new JwtTokenStore(jwtAccessTokenConverter());
     }
 
+    @Bean
     JwtAccessTokenConverter jwtAccessTokenConverter(){
         JwtAccessTokenConverter converter=new JwtAccessTokenConverter();
-        converter.setSigningKey("duichenjiami");
+        converter.setSigningKey("test-secret");
         return converter;
     }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.authenticationManager(authenticationManager)
-        .tokenStore(jwtTokenStore());
+        .tokenStore(jwtTokenStore())
+        .accessTokenConverter(jwtAccessTokenConverter());
     }
 }
