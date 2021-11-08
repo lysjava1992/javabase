@@ -10,6 +10,9 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.string.StringDecoder;
 
+/**
+ * @author admin
+ */
 public class NettyServer {
     public static void main(String[] args) {
         ServerBootstrap serverBootstrap=new ServerBootstrap();
