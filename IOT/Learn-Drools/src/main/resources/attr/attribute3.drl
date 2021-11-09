@@ -1,0 +1,42 @@
+package attribute
+
+rule "rule_1"
+   date-effective "2022-11-09 15:35:00"
+   timer(3s 2s)
+   when
+   then
+     System.out.println("定时1触发执行");
+    end
+rule "rule_2"
+   date-effective "2021-11-09 15:42:00"
+   agenda-group "agent1"
+  // activation-group "group1"
+   timer(1s 5s)
+   when
+   then
+     System.out.println(System.currentTimeMillis()+"  定时2触发执行");
+    end
+ rule "rule_2_1"
+    date-effective "2021-11-09 15:42:00"
+    // group失效了
+    // activation-group "group1"
+    agenda-group "agent2"
+    auto-focus true
+    timer(1s 5s)
+    when
+    then
+      System.out.println(System.currentTimeMillis()+"  定时2_1触发执行");
+     end
+rule "rule_3"
+   date-expires "2021-11-09 15:42:00"
+   timer (cron:0/5 * * * * ?)
+   when
+   then
+     System.out.println("Cron触发执行");
+    end
+rule "rule_4"
+   date-expires "2021-01-15 00:00:00"
+   when
+   then
+     System.out.println("触发执行");
+    end

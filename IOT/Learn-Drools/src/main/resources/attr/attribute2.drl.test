@@ -1,0 +1,28 @@
+package attribute
+import com.learn.drools.attribute.Count
+
+rule "rule_1"
+   when
+   then
+     System.out.println("group_1规则1触发执行");
+    end
+rule "rule_2"
+   when
+   then
+     System.out.println("group_1规则2触发执行");
+    end
+rule "rule_3"
+   activation-group "group_1"
+   agenda-group "agenda_1"
+   auto-focus true
+   when
+   then
+     System.out.println("group_1规则3触发执行");
+    end
+rule "rule_4"
+   activation-group "group_1"
+   agenda-group "agenda_1"
+   when
+   then
+     System.out.println("group_1规则4触发执行");
+    end

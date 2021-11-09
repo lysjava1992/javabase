@@ -1,0 +1,72 @@
+package attribute
+import com.learn.drools.attribute.Count
+
+rule "rule_1"
+    // 指定规则不生效
+   enabled false
+   when
+   then
+     System.out.println("group_1规则1触发执行");
+    end
+
+rule "rule_2"
+   // 指定组名，同一组内的规则同时触发时
+   //只会执行统一组中的一条
+   activation-group "group_1"
+   // 指定规则执行的优先级，int 越大越优先
+   // 若没有则自上而下依次触发
+   salience 5
+   when
+   then
+     System.out.println("group_1规则2触发执行");
+    end
+
+rule "rule_3"
+   activation-group "group_1"
+   salience 10
+   // 防止死循环，即当前规则又触发该规则时
+   // 只会执行一次。要慎用
+   no-loop true
+   when
+   // count 初始状态为0>-1
+    $count:Count(count>-1)
+   then
+     // +1则会一直>0触发下去
+     $count.setCount($count.getCount()+1);
+     update($count);
+     System.out.println("group_1规则3触发执行");
+    end
+
+rule "rule_4"
+   //activation-group "group_1"
+   agenda-group "agent_1"
+   salience 3
+   when
+   then
+     System.out.println("group_1规则4触发执行");
+    end
+rule "rule_5"
+   //activation-group "group_2"
+   agenda-group "agent_1"
+   when
+   then
+     System.out.println("group_2规则5触发执行");
+    end
+rule "rule_6"
+   activation-group "group_2"
+
+   //  代码触发session.getAgenda().getAgendaGroup("agent_2").setFocus();
+   // 指定焦点组
+    agenda-group "agent_2"
+   when
+   then
+     System.out.println("group_2规则6触发执行");
+    end
+rule "rule_7"
+   activation-group "group_2"
+   agenda-group "agent_2"
+   auto-focus true
+   when
+   then
+     System.out.println("group_2规则7触发执行");
+    end

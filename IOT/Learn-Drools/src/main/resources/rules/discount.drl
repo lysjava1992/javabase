@@ -1,0 +1,47 @@
+// 逻辑包名
+package discount
+import com.learn.drools.hello.Order
+
+// 规则
+rule "discount_1"
+   when
+      $order:Order(initialPrice<100) and
+      // not contains | contains 集合包含或不包含
+      Order(goods not  contains "巧克力")
+   then
+      $order.setPricePaid($order.getInitialPrice());
+      System.out.println("执行规则1[无优惠]");
+end
+
+rule "discount_2"
+    when
+      $order:Order(initialPrice>=100&&initialPrice<200)
+    then
+      $order.setPricePaid($order.getInitialPrice()-20);
+      System.out.println("执行规则2[满100不足200减20]");
+end
+
+rule "discount_3"
+    when
+      $order:Order(initialPrice>=200&&initialPrice<300)
+    then
+      $order.setPricePaid($order.getInitialPrice()-50);
+      System.out.println("执行规则2[满200不足300减50]");
+end
+
+rule "discount_4"
+    when
+      $order:Order(initialPrice>=300)
+    then
+      $order.setPricePaid($order.getInitialPrice()-60);
+      System.out.println("执行规则2[满300减60]");
+end
+
+
+
+
+
+
+
+
+

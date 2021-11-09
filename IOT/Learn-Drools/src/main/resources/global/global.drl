@@ -1,0 +1,28 @@
+package globals
+import com.learn.drools.globals.DoService
+global java.lang.Integer count//定义一个包装类型的全局变量
+global java.util.List list
+global DoService doService
+rule "rule_global_1"
+    when
+    then
+         //对于包装类型的全局变量的修改只针对当前规则生效
+         // 即count在每一个规则中只是一个副本，其结果只会影响当前规则
+         // 不会影响其他规则
+         // 也不会影响原值
+        count += 10;
+        // 对象类型为集合类型或JavaBean时，在一个规则中改变了global的值，对java代码和所有规则都有效。
+        list.add("rule_global_1");
+        doService.doSomeThing();
+        System.out.println("规则：rule_global_1触发  " + count+" List: "+list.size());
+    end
+
+rule "rule_global_2"
+    when
+    then
+        //对于包装类型的全局变量的修改只针对当前规则生效
+        count += 10;
+        list.add("rule_global_2");
+        doService.doSomeThing();
+        System.out.println("规则：rule_global_2触发  " + count +" List: "+list.size());
+    end

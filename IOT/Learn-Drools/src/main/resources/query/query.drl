@@ -1,0 +1,35 @@
+package querys
+import com.learn.drools.querys.Device
+
+function boolean test(float status){
+System.out.println("---"+status);
+return  status<20;
+}
+
+query normalDevice
+    $device:Device(value<20)
+  // $device:Device(test(value))
+   // $device:Device(isOk()) 不好用
+
+end
+
+query byName(String na)
+    $device:Device(name==na)
+end
+
+
+rule "transform"
+  when
+     $device:Device(!isTransform())
+  then
+    $device.setValue($device.getValue()/10);
+    $device.setTransform(true);
+    update($device)
+   end
+
+rule "判断"
+    when
+     $device:Device(isTransform()&&value>20)
+     then
+     $device.setOk(false);
+ end

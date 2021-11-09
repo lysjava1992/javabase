@@ -1,0 +1,50 @@
+package sensor
+import com.learn.drools.iot.Sensor
+import com.learn.drools.iot.Alarm
+
+rule "Sensor_换算"
+  when
+    $sensor:Sensor(!isDeal())
+  then
+    $sensor.setValue($sensor.getValue()/10);
+    $sensor.setDeal(true);
+    //update方法的作用是更新工作内存中的数据，并让相关的规则重新匹配。
+    update($sensor)
+   end
+rule "Sensor_正常"
+    when
+     $sensor:Sensor(isDeal()) and
+     Sensor($sensor.value<5)
+    then
+     $sensor.setStatus("正常");
+     end
+rule "Sensor_初级预警"
+    when
+     $sensor:Sensor(isDeal()) and
+     Sensor($sensor.value>5&&$sensor.value<15)
+    then
+     $sensor.setStatus("异常");
+     insert(new Alarm("初级报警",$sensor));
+     end
+rule "Sensor_高级报警"
+    when
+     $sensor:Sensor(isDeal()) and
+     Sensor($sensor.value>=15)
+    then
+     $sensor.setStatus("异常");
+     Alarm alarm=new Alarm("严重报警",$sensor);
+     insert(alarm);
+     end
+
+rule "alarm_初级报警"
+     when
+       $alarm:Alarm(type=="初级报警")
+      then
+        $alarm.warning();
+       end
+rule "alarm_严重报警"
+     when
+       $alarm:Alarm(type =="严重报警")
+      then
+        $alarm.alarm();
+       end
