@@ -4,6 +4,7 @@ import org.jeasy.rules.annotation.Action;
 import org.jeasy.rules.annotation.Condition;
 import org.jeasy.rules.annotation.Fact;
 import org.jeasy.rules.annotation.Rule;
+import org.jeasy.rules.api.Facts;
 
 /**
  *  Rule 有三个属性
@@ -15,16 +16,19 @@ import org.jeasy.rules.annotation.Rule;
 public class RuleOneE {
 
     @Condition
-    public boolean isOk(){
+    public boolean isOk(@Fact("number") int number){
 
-        return false;
+        // return true;
+        return number==0;
     }
 
 
     @Action()
-    public void do1(){
-        System.out.println("RuleOneE触发");
-        throw new RuntimeException("引擎异常");
+    public void do1(Facts facts){
+         int number=facts.get("number");
+         facts.put("number",number+1);
+         System.out.println("RuleOneE触发");
+        //throw new RuntimeException("引擎异常");
 
     }
 

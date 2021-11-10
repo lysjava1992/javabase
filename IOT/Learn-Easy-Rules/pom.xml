@@ -18,11 +18,14 @@
         <artifactId>easy-rules-core</artifactId>
         <version>4.1.0</version>
     </dependency>
+
+    <!--复合规则支持-->
     <dependency>
         <groupId>org.jeasy</groupId>
         <artifactId>easy-rules-support</artifactId>
         <version>4.1.0</version>
     </dependency>
+    <!--MVEL语法支持-->
     <dependency>
         <groupId>org.jeasy</groupId>
         <artifactId>easy-rules-mvel</artifactId>

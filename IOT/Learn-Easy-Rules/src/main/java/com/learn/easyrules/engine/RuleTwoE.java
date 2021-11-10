@@ -2,7 +2,9 @@ package com.learn.easyrules.engine;
 
 import org.jeasy.rules.annotation.Action;
 import org.jeasy.rules.annotation.Condition;
+import org.jeasy.rules.annotation.Fact;
 import org.jeasy.rules.annotation.Rule;
+import org.jeasy.rules.api.Facts;
 
 /**
  *  Rule 有三个属性
@@ -14,15 +16,20 @@ import org.jeasy.rules.annotation.Rule;
 public class RuleTwoE {
 
     @Condition
-    public boolean isOk(){
+    public boolean isOk(@Fact("number") int number){
 
-        return true;
+       return number==1;
+        // return true;
     }
 
 
     @Action()
-    public void do1(){
+    public void do1(Facts facts){
+        int number=facts.get("number");
+        facts.put("number",number+1);
         System.out.println("RuleTwoE触发");
+
+
     }
 
 

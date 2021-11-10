@@ -15,7 +15,10 @@ public class RuleApp {
 
         Facts facts=new Facts();
         facts.put("key",new Object());
-        RulesEngine rulesEngine=new DefaultRulesEngine();
+        InferenceRulesEngine  rulesEngine=new  InferenceRulesEngine();
+       // DefaultRulesEngine rulesEngine=new DefaultRulesEngine();
+        rulesEngine.registerRuleListener(new CustomRuleListener());
+        rulesEngine.registerRulesEngineListener(new CustomEngineListener());
         // RulesEngine rulesEngine=new InferenceRulesEngine();
         rulesEngine.fire(rules,facts);
     }
