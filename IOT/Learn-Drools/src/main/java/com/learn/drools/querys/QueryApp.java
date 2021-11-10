@@ -7,7 +7,7 @@ import org.kie.api.runtime.rule.QueryResults;
 import org.kie.api.runtime.rule.QueryResultsRow;
 
 public class QueryApp {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         KieServices kieServices=KieServices.Factory.get();
         KieContainer container=kieServices.getKieClasspathContainer();
         KieSession session=container.newKieSession("rule-query");
@@ -15,12 +15,15 @@ public class QueryApp {
         for (int i = 0; i <10 ; i++) {
              Device device=new Device((30F*i),"设备_"+i);
              session.insert(device);
+
         }
       //  executeQuery(session,"normalDevice");
         //executeQuery(session,"byName","设备_1");
         session.fireAllRules();
+        session.fireUntilHalt();
         executeQuery(session,"normalDevice");
         executeQuery(session,"byName","设备_2");
+        Thread.sleep(10000);
         session.dispose();
     }
 

@@ -7,9 +7,9 @@ return  status<20;
 }
 
 query normalDevice
-    $device:Device(value<20)
-  // $device:Device(test(value))
-   // $device:Device(isOk()) 不好用
+   // $device:Device(value<20)
+  // $device:Device(test(value)) 不好用
+      $device:Device(isOk()) // boolean类的返回并不好用
 
 end
 
@@ -25,6 +25,7 @@ rule "transform"
     $device.setValue($device.getValue()/10);
     $device.setTransform(true);
     update($device)
+    //drools.halt();
    end
 
 rule "判断"
@@ -32,4 +33,29 @@ rule "判断"
      $device:Device(isTransform()&&value>20)
      then
      $device.setOk(false);
+ end
+
+
+
+rule "exists_rule_1"
+    when
+     Device()
+     then
+     System.out.println("exists_rule_1_触发");
+ end
+
+
+ rule "exists_rule_2"
+     when
+      exists Device()
+      then
+      System.out.println("exists_rule_2_触发");
+ end
+
+
+ rule "time_2"
+      timer(0s 2s)
+      when
+      then
+
  end

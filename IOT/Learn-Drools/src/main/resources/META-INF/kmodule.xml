@@ -9,6 +9,7 @@
         <!-- name :需要唯一-->
         <ksession name="all-rule" />
     </kbase>
+
     <kbase name="rules_2" packages="attr" >
         <!-- name :需要唯一-->
         <ksession name="rule-attr" />
@@ -22,5 +23,10 @@
     <kbase name="rules_4" packages="query" >
         <!-- name :需要唯一-->
         <ksession name="rule-query" />
+    </kbase>
+
+    <kbase name="rules_5" packages="table" >
+        <!-- name :需要唯一-->
+        <ksession name="rule-table" />
     </kbase>
 </kmodule>

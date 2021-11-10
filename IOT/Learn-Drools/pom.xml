@@ -32,7 +32,11 @@
             <version>7.1.0.Final</version>
             <scope>runtime</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.drools</groupId>
+            <artifactId>drools-decisiontables</artifactId>
+            <version>7.1.0.Final</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
