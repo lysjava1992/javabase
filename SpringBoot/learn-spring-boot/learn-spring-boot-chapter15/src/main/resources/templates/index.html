@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>websocket</title>
+</head>
+<body>
+<h2>测试连接websocket</h2>
+<p>
+    连接url:
+    <input type="text" value="ws://localhost:8080/api/ws/plugins/12" id="url">
+    <button onclick="openWeb()">打开连接</button>
+</p>
+<p>
+    发送信息内容：
+    <input type="text" id="message"><button onclick="send()">发送信息</button>
+</p>
+<hr>
+<p>消息区域</p>
+<p id="show"></p>
+
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+<script type="text/javascript">
+    var url="/api/ws/plugins/12";//socket所需要的地址
+    var socket;//socket对象
+    function openWeb(){
+        createWebSocket(document.getElementById("url").value)
+    }
+
+    //创建WebSocket连接
+    function createWebSocket(url){
+        if ('WebSocket' in window) {
+            socket = new WebSocket(url);
+        } else {
+            socket = new SockJS(url);
+        }
+
+        //连接打开事件
+        socket.onopen = function() {
+            console.log("Socket已连接到"+url);
+        };
+
+        //收到服务器消息后响应
+        socket.onmessage = function(e) {
+            console.log("收到服务端消息："+e.data)
+            document.getElementById("show").innerHTML+="<br>"+e.data
+        };
+
+        //连接关闭事件
+        socket.onclose = function() {
+            console.log("Socket已关闭连接");
+        };
+        //发生了错误事件
+        socket.onerror = function() {
+            console.log("Socket发生了错误");
+        }
+
+        //窗口关闭时，关闭连接
+        window.unload=function() {
+            socket.close();
+        };
+
+    }
+
+    function send(){
+        socket.send(document.getElementById("message").value)
+    }
+
+</script>
+
+
+</html>
