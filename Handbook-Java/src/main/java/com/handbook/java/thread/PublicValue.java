@@ -8,12 +8,19 @@ public class PublicValue {
     public String username = "default";
     public String password = "default";
 
+    /**
+     * 静态方法锁，类锁锁的是PublicValue.class
+     * @throws InterruptedException
+     */
     public synchronized static void fun() throws InterruptedException {
-        System.out.println("静态方法锁");
+        System.out.println("静态方法锁开始");
         Thread.sleep(10000);
-        System.out.println("静态方法锁");
+        System.out.println("静态方法锁结束");
     }
-    //同步实例方法
+
+    /**
+     * 方法锁，锁的是对象
+     */
     public synchronized void setValue(String username, String password) {
         try {
             this.username = username;
@@ -27,8 +34,8 @@ public class PublicValue {
         }
     }
 
-    //非同步实例方法
-    public synchronized void getValue() {
+    //非同步方法，可以不加锁
+    public  void getValue() {
         System.out.println("method=getValue " + "\t" +  "threadName="
                 + Thread.currentThread().getName()+ "\t" + " username=" + username
                 + ", password=" + password);
@@ -44,6 +51,7 @@ public class PublicValue {
             }
         });
         thread.start();
+
         Thread thread2=new Thread(()->{
             pv.setValue("Tom","123456");
         });

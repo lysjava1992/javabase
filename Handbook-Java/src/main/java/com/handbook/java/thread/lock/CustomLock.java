@@ -1,5 +1,8 @@
-package com.handbook.java.thread;
+package com.handbook.java.thread.lock;
 
+/**
+ * 自定义锁
+ */
 public class CustomLock  {
     private boolean isLocked =false;
     private Thread lockingThread=null;

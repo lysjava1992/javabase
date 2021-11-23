@@ -3,18 +3,17 @@ package com.handbook.java.thread;
 /**
  * 天行健，君子以自强不息
  * 地势坤，君子以厚德载物
- *   锁
- * @ClassName WorkDemo
- * @Description TODO
+ *    Class锁
+ *    类锁，多线程下即使是不同的实例
+ *    但依然是拿到的同一把锁
  * @Author Mr.Luan
- * @Date 2021/3/21 15:08
- * @Version 1.0
  **/
-public class WorkDemo1 extends Thread {
+public class SynchronizedClass extends Thread {
     private static int index=0;
     @Override
     public void run() {
-        synchronized (WorkDemo1.class){
+        //类锁
+        synchronized (SynchronizedClass.class){
             try {
                 Thread.sleep(50);
                 {
@@ -28,13 +27,11 @@ public class WorkDemo1 extends Thread {
                 e.printStackTrace();
             }
         }
-
-
     }
 
     public static void main(String[] args) {
-        Thread thread1=new WorkDemo1();
-        Thread thread2=new WorkDemo1();
+        Thread thread1=new SynchronizedClass();
+        Thread thread2=new SynchronizedClass();
         thread1.start();
         thread2.start();
     }

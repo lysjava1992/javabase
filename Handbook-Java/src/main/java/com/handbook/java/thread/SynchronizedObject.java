@@ -1,7 +1,12 @@
 package com.handbook.java.thread;
 
-public class DoSomeThing {
+/**
+ * 对象锁
+ */
+public class SynchronizedObject {
     public void doSome(Object lock){
+        // 此时锁住的是lock
+        // 即多个线程若是同一个lock对象则只能一个线程执行
         synchronized (lock){
             while (true){
                 System.out.println(Thread.currentThread().getName());
@@ -14,15 +19,15 @@ public class DoSomeThing {
     }
 
     public static void main(String[] args) {
-        DoSomeThing doSomeThing=new DoSomeThing();
-        DoSomeThing doSomeThing2=new DoSomeThing();
+        SynchronizedObject synchronizedObject =new SynchronizedObject();
+        SynchronizedObject synchronizedObject2 =new SynchronizedObject();
         Object lock=new Object();
-      //  String lock=new String("A");
+
         Thread thread=new Thread(()->{
-            doSomeThing.doSome(lock);
+            synchronizedObject.doSome(lock);
         },"Thread-0");
         Thread thread2=new Thread(()->{
-            doSomeThing2.doSome(lock);
+            synchronizedObject2.doSome(lock);
         },"Thread-1");
         thread.start();
         thread2.start();

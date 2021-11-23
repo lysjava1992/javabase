@@ -1,9 +1,9 @@
-package com.handbook.java.thread;
+package com.handbook.java.thread.lock;
+
+import com.handbook.java.thread.lock.QueueObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.locks.AbstractQueuedSynchronizer;
-import java.util.concurrent.locks.Lock;
 
 /**
  * 公平锁
@@ -20,7 +20,6 @@ public class FairLock {
      *    所有其它的线程都将处于等待状态，直到它们处于队列头部
      * @throws InterruptedException
      */
-
     public void lock() throws InterruptedException {
         //每次调用lock,就会新建一个临时对象标记当前线程
         QueueObject queueObject = new QueueObject();

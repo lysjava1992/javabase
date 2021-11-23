@@ -4,7 +4,7 @@ package com.handbook.java.thread;
  *  假唤醒
  *   自旋锁
  */
-public class MyWaitNotify2 {
+public class ThreadWaitNotify2 {
     Object lock = new Object();
     boolean wasSignalled = false;
     public void doWait() {
@@ -28,12 +28,10 @@ public class MyWaitNotify2 {
 
 
     public static void main(String[] args) throws InterruptedException {
-        MyWaitNotify2 waitNotify=new MyWaitNotify2();
+        ThreadWaitNotify2 waitNotify=new ThreadWaitNotify2();
         System.out.println("唤醒----下一个通知");
         new Thread(()->{ waitNotify.doNotify();});
         Thread.sleep(1000);
         new Thread(()->{waitNotify.doWait();});
-
-
     }
 }

@@ -1,4 +1,4 @@
-package com.handbook.java.thread;
+package com.handbook.java.thread.lock;
 
 /**
  * 监听器对象

@@ -1,4 +1,4 @@
-package com.handbook.java.thread;
+package com.handbook.java.thread.lock;
 
 import java.util.Random;
 
