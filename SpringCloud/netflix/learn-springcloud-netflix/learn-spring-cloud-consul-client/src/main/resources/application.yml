@@ -1,0 +1,12 @@
+server:
+  port: 8051
+
+spring:
+  application:
+    # 服务名称
+    name: Consul-Client
+  cloud:
+    consul:
+      discovery:
+        hostname: 127.0.0.1
+        port: 8500
