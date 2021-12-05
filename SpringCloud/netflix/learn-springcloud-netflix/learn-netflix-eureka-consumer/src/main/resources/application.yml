@@ -1,0 +1,12 @@
+server:
+  port: 8002
+spring:
+  application:
+    # 服务名称
+    name: Eureka-Consumer
+
+eureka:
+  client:
+    service-url:
+      # 注册中心的地址
+      defaultZone: "http://127.0.0.1:1001/eureka/"

@@ -1,0 +1,24 @@
+server:
+  port: 1001
+spring:
+  application:
+    # 服务名称
+    name: Eureka-Regiser
+eureka:
+  instance:
+    # 主机名
+    hostname: 127.0.0.1
+  client:
+    # 在单注册中心下 以下两个配置需要设置为false
+    # 默认下注册中心也是一个客户端，会向注册中心发起注册
+    # 因此要禁止
+    register-with-eureka: false
+    # 指示此客户端是否应从eureka服务器获取eureka注册表信息。
+    # 因其本身就是注册服务器，也要禁止
+    fetch-registry: false
+
+    service-url:
+      # 配置注册中心的注册地址 127.0.0.1:1001/eureka
+      defaultZone: "http://${eureka.instance.hostname}:${server.port}/eureka/"
+
+    #若多注册中心则注册中心服务本身也要作为一个客户端向其他注册中心相互注册
