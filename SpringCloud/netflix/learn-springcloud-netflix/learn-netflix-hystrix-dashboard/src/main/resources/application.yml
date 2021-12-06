@@ -1,0 +1,17 @@
+server:
+  port: 1003
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+spring:
+  application:
+    name: Netflix-Turbine
+eureka:
+  client:
+    service-url:
+      defaultZone: "http://127.0.0.1:1001/eureka/"
+turbine:
+  # 要监控的服务名称
+  app-config: "Eureka-Consumer-Feign"

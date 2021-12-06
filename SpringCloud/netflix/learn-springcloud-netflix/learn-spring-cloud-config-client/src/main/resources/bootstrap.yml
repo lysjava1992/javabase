@@ -1,0 +1,37 @@
+# bootstrap.yml 优先级高于application.yml
+spring:
+  application:
+    name: Config-Client
+  cloud:
+    config:
+      # 注册中心
+      discovery:
+        enabled: true
+        service-id: Config-Server
+      # 单中心注册中心地址
+      #uri: http://127.0.0.1:1002/
+      # 环境
+      profile: default
+      #　版本号
+      label: master
+
+
+server:
+  port: 8007
+
+eureka:
+  client:
+    service-url:
+      # 注册中心的地址
+      defaultZone: "http://127.0.0.1:1001/eureka/"
+
+# 通过actuator的监控功能refresh 来实现远程配置的动态更新
+# 此处不配置不生效
+management:
+  server:
+    port: 8007
+  endpoints:
+    web:
+      base-path: /
+      exposure:
+        include: refresh,health,info

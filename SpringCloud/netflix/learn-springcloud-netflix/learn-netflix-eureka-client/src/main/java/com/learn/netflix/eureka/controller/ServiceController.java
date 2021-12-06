@@ -20,6 +20,19 @@ public class ServiceController {
 
     @GetMapping("info")
     public Map info(){
+        try {
+            // 触发熔断
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Map<String,Object> map=new HashMap<>();
+        map.put("services",discoveryClient.getServices());
+        map.put("description", discoveryClient.description());
+        return map;
+    }
+    @GetMapping("info2")
+    public Map info2(){
         Map<String,Object> map=new HashMap<>();
         map.put("services",discoveryClient.getServices());
         map.put("description", discoveryClient.description());

@@ -1,0 +1,16 @@
+server:
+  port: 1002
+spring:
+  application:
+    name: Config-Server
+  # 配置中心 git仓库
+  cloud:
+    config:
+      server:
+        git:
+          uri: git@gitee.com:lysmayun/springcloud-config.git
+eureka:
+  client:
+    service-url:
+      # 注册中心的地址
+      defaultZone: "http://127.0.0.1:1001/eureka/"

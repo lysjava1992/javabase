@@ -1,0 +1,23 @@
+server:
+  port: 8009
+spring:
+  application:
+    # 服务名称
+    name: Eureka-Consumer-Feign
+
+eureka:
+  client:
+    service-url:
+      # 注册中心的地址
+      defaultZone: "http://127.0.0.1:1001/eureka/"
+
+# 必须开启，默认是不开启的
+feign:
+  hystrix:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

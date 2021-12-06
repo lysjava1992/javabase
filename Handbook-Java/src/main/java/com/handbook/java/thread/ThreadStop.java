@@ -16,11 +16,11 @@ public class ThreadStop {
         Thread thread=new Thread(demo);
         thread.start();
         Thread.sleep(1000);
+        // 强制停止
         //thread.stop();
-        thread.interrupt();
-        System.out.println(demo.a);
-        System.out.println(demo.b);
 
+        //中断异常 可以捕捉SecurityException
+        thread.interrupt();
     }
    static class ThreadDemo implements Runnable{
         private  int a=0;

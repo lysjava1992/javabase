@@ -13,8 +13,14 @@
         <module>learn-netflix-eureka-client</module>
         <module>learn-netflix-eureka-consumer</module>
         <module>learn-netflix-eureka-consumer-ribbon</module>
+        <module>learn-netflix-eureka-consumer-ribbon-hystrix</module>
         <module>learn-netflix-eureka-consumer-feign</module>
+        <module>learn-netflix-eureka-consumer-feign-hystrix</module>
         <module>learn-spring-cloud-consul-client</module>
+        <module>learn-spring-cloud-config-server</module>
+        <module>learn-spring-cloud-config-client</module>
+        <module>learn-netflix-hystrix-dashboard</module>
+
     </modules>
 
     <properties>

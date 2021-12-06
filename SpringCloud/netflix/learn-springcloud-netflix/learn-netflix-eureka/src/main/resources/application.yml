@@ -10,6 +10,7 @@ eureka:
     hostname: 127.0.0.1
   client:
     # 在单注册中心下 以下两个配置需要设置为false
+    # 默认为true多注册中心模式下，需要作为一个客户端，向其他注册中心相互注册
     # 默认下注册中心也是一个客户端，会向注册中心发起注册
     # 因此要禁止
     register-with-eureka: false
