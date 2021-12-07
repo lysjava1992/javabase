@@ -15,7 +15,7 @@ eureka:
     # 因此要禁止
     register-with-eureka: false
     # 指示此客户端是否应从eureka服务器获取eureka注册表信息。
-    # 因其本身就是注册服务器，也要禁止
+    # 因其本身就是注册服务器,而且是单机版所以没必要
     fetch-registry: false
 
     service-url:

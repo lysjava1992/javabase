@@ -1,0 +1,26 @@
+server:
+  port: 1003
+eureka:
+  client:
+    service-url:
+      defaultZone: "http://127.0.0.1:1001/eureka/"
+spring:
+  application:
+    name: Netflix-Zuul
+
+# 路由配置，在不配置的情况下默认为
+#最终请求路径　http://127.0.0.1:8001/info　 服务名 Eureka-Client
+#       则默认请求下为 http://127.0.0.1:1003/eureka-client/info
+#       通过以下配置   http://127.0.0.1:1003/v1/info
+zuul:
+  routes:
+     Eureka-Client: /v1/**
+     eureka-consumer-feign: /v2/**
+
+# zuul服务发起调用 ——》A微服务（feign+hystrix）——》B微服务
+# 若A调用B时超时，理论上会返回A的本地调用
+# 但zuul本身也有超时配置，因此还为等到A的超时触发ZULL则已经超时
+# feign是基于ribbon的
+#ribbon:
+#  ReadTimeout: 10000
+#  ConnectTimeout: 10000

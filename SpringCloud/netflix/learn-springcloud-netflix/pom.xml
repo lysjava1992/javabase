@@ -20,6 +20,8 @@
         <module>learn-spring-cloud-config-server</module>
         <module>learn-spring-cloud-config-client</module>
         <module>learn-netflix-hystrix-dashboard</module>
+        <module>learn-netflix-eureka-zuul</module>
+        <module>learn-spring-cloud-stream</module>
 
     </modules>
 
