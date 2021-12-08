@@ -1,0 +1,14 @@
+spring:
+  rabbitmq:
+    host: 192.168.1.141
+  cloud:
+    stream:
+      bindings:
+        input:
+           destination: greetings
+           producer:
+             # 将payload进行Hash
+             partitionKeyExpression: payload
+             # 分片数即消费者数量
+             partitionCount: 2
+

@@ -1,0 +1,21 @@
+
+spring:
+  rabbitmq:
+    host: 192.168.1.141
+  cloud:
+    stream:
+      bindings:
+        input:
+          destination: greetings
+          # 消费者分组
+          # 同一组内的消费者为竞争关系
+          group: Service-A
+          consumer:
+            #开启分片
+             partitioned: true
+      # 消费者总数
+      instance-count: 2
+      # 当前消费者是第几个
+      instance-index: 0
+server:
+  port: 8082
