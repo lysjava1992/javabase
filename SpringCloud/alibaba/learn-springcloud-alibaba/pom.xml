@@ -10,31 +10,38 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>learn-alibaba-discovery-provide</module>
+        <module>learn-alibaba-discovery-consumer-rest</module>
+        <module>learn-alibaba-discovery-consumer-webflux</module>
+        <module>learn-alibaba-discovery-consumer-feign</module>
+        <module>learn-alibaba-discovery-sentinel</module>
     </modules>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <spring.cloud.version>Hoxton.SR9</spring.cloud.version>
-        <spring.cloud.alibaba.version>2.2.6.RELEASE</spring.cloud.alibaba.version>
+        <spring.cloud-version>Hoxton.SR6</spring.cloud-version>
+        <spring.cloud.alibaba-version>2.2.1.RELEASE</spring.cloud.alibaba-version>
     </properties>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.5.RELEASE</version>
+    </parent>
 
-    <!--维护依赖-->
     <dependencyManagement>
         <dependencies>
-            <!--维护springcloud-->
+            <!-- 版本维护 -->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring.cloud.version}</version>
+                <version>${spring.cloud-version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!--维护springcloud alibaba-->
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-                <version>${spring.cloud.alibaba.version}</version>
+                <version>${spring.cloud.alibaba-version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
