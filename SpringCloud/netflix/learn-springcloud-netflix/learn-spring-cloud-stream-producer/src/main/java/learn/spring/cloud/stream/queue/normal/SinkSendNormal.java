@@ -7,15 +7,11 @@ import org.springframework.messaging.SubscribableChannel;
 
 
 public interface SinkSendNormal {
-
     String OUTPUT = "input";
-
     /**
      * 发布
      * @return
      */
     @Output(SinkSendNormal.OUTPUT)
      MessageChannel output();
-
-
 }
