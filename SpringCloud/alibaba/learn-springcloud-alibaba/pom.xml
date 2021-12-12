@@ -14,6 +14,9 @@
         <module>learn-alibaba-discovery-consumer-webflux</module>
         <module>learn-alibaba-discovery-consumer-feign</module>
         <module>learn-alibaba-discovery-sentinel</module>
+        <module>learn-alibaba-dubbo-api</module>
+        <module>learn-alibaba-dubbo-consumer</module>
+        <module>learn-alibaba-dubbo-provide</module>
     </modules>
 
     <properties>
