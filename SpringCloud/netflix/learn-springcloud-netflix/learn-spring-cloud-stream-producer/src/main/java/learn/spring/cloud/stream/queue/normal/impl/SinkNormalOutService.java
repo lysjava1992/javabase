@@ -26,8 +26,7 @@ public class SinkNormalOutService {
     public MessageChannel inputChannel() {
         return new DirectChannel();
     }
-//    @EventListener(ApplicationReadyEvent.class)
-//    @Order(value = 2)
+
 
     @EventListener(ApplicationReadyEvent.class)
     public void ready() {

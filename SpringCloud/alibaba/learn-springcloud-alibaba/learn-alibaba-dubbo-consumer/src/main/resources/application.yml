@@ -1,0 +1,22 @@
+server:
+  port: 8002
+spring:
+  application:
+    name: nacos-discovery-consumer
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  main:
+    allow-bean-definition-overriding: true
+dubbo:
+  scan:
+    base-packages: learn.alibaba.dubbo.provide.service
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    address: spring-cloud://localhost
+  cloud:
+    #订阅的微服务名称
+    subscribed-services: nacos-discovery-provide

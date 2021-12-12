@@ -1,0 +1,16 @@
+server:
+  port: 8006
+spring:
+  application:
+    name: alibaba-double-provide
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    sentinel:
+      transport:
+        # 当服务启动后，并不会在sentinel页面展示
+        # 只有在该微服务接收一次请求后才会触发从页面中找到服务
+        dashboard: 127.0.0.1:8080
+        # 默认是8719用来接收sentinel-dashboard的配置更新
+        port: 8719
