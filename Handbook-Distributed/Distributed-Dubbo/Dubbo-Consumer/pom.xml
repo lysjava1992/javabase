@@ -20,7 +20,7 @@
     <dependency>
         <groupId>com.alibaba</groupId>
         <artifactId>dubbo</artifactId>
-        <version>2.5.3</version>
+        <version>2.6.9</version>
     </dependency>
 
     <!--dubbo将zookeeper作为注册中心-->
